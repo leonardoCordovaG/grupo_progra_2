@@ -89,6 +89,18 @@ public class VistaConfirmacionPago extends JPanel {
 
         if (confirm != JOptionPane.YES_OPTION) return;
 
+        // Marcar entradas como vendidas en la zona
+        modelo.Entrada[] entradas = zona.mostrarEntrada();
+        int marcadas = 0;
+        for (modelo.Entrada e : entradas) {
+            if (marcadas >= cantidad) break;
+            if (e != null && e.vender()) marcadas++;
+        }
+
+        // Registrar la venta en el historial del cliente
+        modelo.Venta venta = new modelo.Venta(new java.util.Date(), total, zona, null, concierto.getNombre(), cantidad);
+        nav.getClienteActual().agregarVenta(venta);
+
         JOptionPane.showMessageDialog(this,
             "¡Compra realizada con éxito!\n\n" +
             "  Concierto : " + concierto.getNombre() + "\n" +

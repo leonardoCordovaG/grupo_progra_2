@@ -14,7 +14,7 @@ public class VistaDetalleConcierto extends JPanel {
     private final JLabel lblFecha;
     private final DefaultTableModel modeloTabla;
     private final JTable tablaZonas;
-    private final JSpinner spinnerCantidad;
+    private final JComboBox<Integer> comboCantidad;
 
     public VistaDetalleConcierto(ProyectoVenta_de_Entradas nav) {
         this.nav = nav;
@@ -49,9 +49,8 @@ public class VistaDetalleConcierto extends JPanel {
         // --- Pie: cantidad y botones ---
         JPanel panelFooter = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         panelFooter.add(new JLabel("Cantidad de entradas:"));
-        spinnerCantidad = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
-        ((JSpinner.DefaultEditor) spinnerCantidad.getEditor()).getTextField().setColumns(3);
-        panelFooter.add(spinnerCantidad);
+        comboCantidad = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+        panelFooter.add(comboCantidad);
 
         JButton btnContinuar = new JButton("Continuar al pago");
         JButton btnVolver = new JButton("Volver al catálogo");
@@ -66,7 +65,8 @@ public class VistaDetalleConcierto extends JPanel {
                 return;
             }
             Zona zona = nav.getConciertoSeleccionado().getZonas().get(fila);
-            int cantidad = (Integer) spinnerCantidad.getValue();
+            int cantidad = (Integer) comboCantidad.getSelectedItem();
+
             if (zona.getDisponibles() < cantidad) {
                 JOptionPane.showMessageDialog(this,
                     "Solo hay " + zona.getDisponibles() + " entradas disponibles en esa zona.",
@@ -95,6 +95,6 @@ public class VistaDetalleConcierto extends JPanel {
                 z.getDisponibles()
             });
         }
-        spinnerCantidad.setValue(1);
+        comboCantidad.setSelectedIndex(0);
     }
 }

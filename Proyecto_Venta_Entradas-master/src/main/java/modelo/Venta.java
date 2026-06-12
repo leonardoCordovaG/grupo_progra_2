@@ -7,6 +7,8 @@ public class Venta {
     private int monto;
     private Zona zonaAsociada;
     private Entrada entradaAsociada;
+    private String conciertoNombre;
+    private int cantidadEntradas;
 
     public Venta(Date fecha, int monto) {
         this.fecha = fecha;
@@ -21,6 +23,16 @@ public class Venta {
         this.entradaAsociada = entrada;
     }
 
+    // Constructor completo con nombre del concierto y cantidad para el historial
+    public Venta(Date fecha, int monto, Zona zona, Entrada entrada, String conciertoNombre, int cantidadEntradas) {
+        this.fecha = fecha;
+        this.monto = monto;
+        this.zonaAsociada = zona;
+        this.entradaAsociada = entrada;
+        this.conciertoNombre = conciertoNombre;
+        this.cantidadEntradas = cantidadEntradas;
+    }
+
     public boolean anular() {
         return true;
     }
@@ -33,4 +45,6 @@ public class Venta {
 
     public Zona getZonaAsociada() { return zonaAsociada; }
     public Entrada getEntradaAsociada() { return entradaAsociada; }
+    public String getConciertoNombre() { return conciertoNombre != null ? conciertoNombre : "-"; }
+    public int getCantidadEntradas() { return cantidadEntradas; }
 }

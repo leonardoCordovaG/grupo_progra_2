@@ -56,7 +56,14 @@ public class VistaCatalogoConciertos extends JPanel {
             nav.cambiarVista("DetalleConcierto");
         });
 
-        btnMisCompras.addActionListener(e -> nav.cambiarVista("HistorialCompras"));
+        btnMisCompras.addActionListener(e -> {
+            vista.VistaHistorialCompras vistaHistorial = new vista.VistaHistorialCompras();
+            vistaHistorial.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            new controlador.ControladorHistorial(vistaHistorial, nav.getClienteActual());
+            vistaHistorial.setTitle("Mis Compras — " + nav.getClienteActual().getNombres());
+            vistaHistorial.setLocationRelativeTo(null);
+            vistaHistorial.setVisible(true);
+        });
 
         btnCerrarSesion.addActionListener(e -> {
             nav.setClienteActual(null);

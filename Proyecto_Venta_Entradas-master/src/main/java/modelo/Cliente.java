@@ -7,6 +7,7 @@ public class Cliente extends Persona {
 
     private int puntos;
     private List<Tarjeta> tarjetas;
+    private List<Venta> ventas;
 
     private static List<Cliente> clientesRegistrados = new ArrayList<>();
 
@@ -14,6 +15,7 @@ public class Cliente extends Persona {
         super(nombres, apellidos, dni, contrasena);
         this.puntos = puntos;
         this.tarjetas = new ArrayList<>();
+        this.ventas = new ArrayList<>();
     }
 
     public static Cliente ingresar(String usuarioDni, String clave) {
@@ -46,5 +48,11 @@ public class Cliente extends Persona {
 
     public boolean quitarTarjeta(Tarjeta t) {
         return tarjetas.remove(t);
+    }
+
+    public List<Venta> getVentas() { return ventas; }
+
+    public void agregarVenta(Venta v) {
+        ventas.add(v);
     }
 }

@@ -10,10 +10,18 @@ public class Entrada {
     }
 
     public boolean vender() {
+        if ("disponible".equals(estado)) {
+            estado = "vendida";
+            return true;
+        }
         return false;
     }
 
     public boolean liberar() {
+        if ("vendida".equals(estado)) {
+            estado = "disponible";
+            return true;
+        }
         return false;
     }
 
