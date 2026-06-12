@@ -33,4 +33,19 @@ public abstract class Persona {
     public boolean comprar(){
         return false;
     }
+    public String getDni() {
+        return dni;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+    
+    public String getApellidos() {
+        return apellidos;
+    }
 }
