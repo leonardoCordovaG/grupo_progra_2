@@ -1,0 +1,95 @@
+@startuml Proyecto_Venta_Entradas
+title Diagrama de Clases - Modelo (Proyecto Venta de Entradas)
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor #FDF6E3
+    BorderColor #586E75
+    ArrowColor #586E75
+}
+
+class Persona {
+    - nombres : String
+    - apellidos : String
+    - dni : String
+    - contraseña : String
+
+    + registrarTarjeta() : boolean
+    + eliminarTarjeta() : boolean
+    + anularVenta() : boolean
+    + comprar() : boolean
+}
+
+class Cliente {
+    - puntos : int
+
+    - ingresar(usuario : String, clave : String)
+}
+
+class Usuario {
+    - estado : boolean
+
+    + registrarZonas()
+}
+
+class Concierto {
+    - nombre : String
+    - fecha : Date
+
+    + agregarZona(nombre : String) : boolean
+    + eliminarZona(nombre : String) : boolean
+}
+
+class Zona {
+    - nombre : String
+    - capacidad : int
+    - precio : int
+
+    + generarEntradas() : boolean
+    + mostrarEntrada() : Entrada[]
+    + venderEntrada(numero : int) : Entrada[]
+}
+
+class Entrada {
+    - numero : int
+    - estado : String
+
+    + vender() : Boolean
+    + liberar() : Boolean
+}
+
+class Venta {
+    - fecha : Date
+    - monto : int
+
+    + anular() : boolean
+}
+
+class Tarjeta {
+    - numero : int
+    - nombre : String
+    - fecha : String
+    - CVV : int
+
+    + method() : Type
+}
+
+' Herencia
+Persona <|-- Cliente
+
+' Asociaciones
+Persona <|-- Usuario
+
+Usuario o-- Concierto
+
+Concierto "1" *-- "*" Zona
+
+Zona "1" *-- "*" Entrada
+
+Cliente "1" *-- "1" Tarjeta
+
+Cliente "1" --o "*" Venta
+
+Venta "1" o-- "1..4" Entrada
+
+@enduml
