@@ -5,6 +5,7 @@ import modelo.Concierto;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.net.URL;
 import java.util.List;
 
 public class VistaCatalogoConciertos extends JPanel {
@@ -16,12 +17,10 @@ public class VistaCatalogoConciertos extends JPanel {
     public VistaCatalogoConciertos(ProyectoVenta_de_Entradas nav) {
         this.nav = nav;
         setLayout(new BorderLayout(10, 10));
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
 
-        // --- Cabecera ---
-        JLabel lblTitulo = new JLabel("Conciertos Disponibles", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 22));
-        add(lblTitulo, BorderLayout.NORTH);
+        // --- Banner con imagen ---
+        add(crearBanner(), BorderLayout.NORTH);
 
         // --- Tabla de conciertos ---
         String[] columnas = {"Concierto", "Fecha", "Zonas"};
@@ -37,8 +36,8 @@ public class VistaCatalogoConciertos extends JPanel {
 
         // --- Botones ---
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        JButton btnVerDetalle = new JButton("Ver detalle del concierto");
-        JButton btnMisCompras = new JButton("Mis compras");
+        JButton btnVerDetalle  = new JButton("Ver detalle del concierto");
+        JButton btnMisCompras  = new JButton("Mis compras");
         JButton btnCerrarSesion = new JButton("Cerrar sesión");
         panelBotones.add(btnVerDetalle);
         panelBotones.add(btnMisCompras);
@@ -57,7 +56,7 @@ public class VistaCatalogoConciertos extends JPanel {
         });
 
         btnMisCompras.addActionListener(e -> {
-            vista.VistaHistorialCompras vistaHistorial = new vista.VistaHistorialCompras();
+            VistaHistorialCompras vistaHistorial = new VistaHistorialCompras();
             vistaHistorial.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
             new controlador.ControladorHistorial(vistaHistorial, nav.getClienteActual());
             vistaHistorial.setTitle("Mis Compras — " + nav.getClienteActual().getNombres());
@@ -69,6 +68,30 @@ public class VistaCatalogoConciertos extends JPanel {
             nav.setClienteActual(null);
             nav.cambiarVista("Login");
         });
+    }
+
+    private JPanel crearBanner() {
+        JPanel banner = new JPanel(new BorderLayout());
+
+        // Imagen
+        URL imgUrl = getClass().getResource("/imagenes/zona_imagen.png");
+        if (imgUrl != null) {
+            ImageIcon iconOriginal = new ImageIcon(imgUrl);
+            Image imgEscalada = iconOriginal.getImage().getScaledInstance(760, 150, Image.SCALE_SMOOTH);
+            JLabel lblImagen = new JLabel(new ImageIcon(imgEscalada));
+            lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+            banner.add(lblImagen, BorderLayout.CENTER);
+        }
+
+        // Título sobre la imagen (panel transparente encima)
+        JLabel lblTitulo = new JLabel("Conciertos Disponibles", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 22));
+        lblTitulo.setForeground(Color.WHITE);
+        lblTitulo.setOpaque(false);
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
+        banner.add(lblTitulo, BorderLayout.SOUTH);
+
+        return banner;
     }
 
     public void refresh() {
