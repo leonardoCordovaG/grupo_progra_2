@@ -37,8 +37,8 @@ public class VistaTicketVirtual extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         lblNumeroEntrada = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        btnCerrarTicket = new javax.swing.JButton();
         lblMonto = new javax.swing.JLabel();
-        btnCerrarTicket = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,38 +58,37 @@ public class VistaTicketVirtual extends javax.swing.JDialog {
 
         jLabel5.setText("Monto:");
 
-        lblMonto.setText("---");
+        btnCerrarTicket.setText("Aceptar y cerrar");
 
-        btnCerrarTicket.setText("Aceptar y Cerrar");
+        lblMonto.setText("---");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblConcierto, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblZona)
-                            .addComponent(lblNumeroEntrada)
-                            .addComponent(lblMonto)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCerrarTicket)
-                        .addGap(54, 54, 54)))
+                .addGap(78, 78, 78)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblConcierto, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblZona)
+                    .addComponent(lblNumeroEntrada)
+                    .addComponent(lblMonto))
                 .addGap(84, 84, 84))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(72, 72, 72))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnCerrarTicket)
+                        .addGap(123, 123, 123))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,9 +111,9 @@ public class VistaTicketVirtual extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lblMonto))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(btnCerrarTicket)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -158,7 +157,7 @@ public class VistaTicketVirtual extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnCerrarTicket;
+    private javax.swing.JButton btnCerrarTicket;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -169,4 +168,20 @@ public class VistaTicketVirtual extends javax.swing.JDialog {
     private javax.swing.JLabel lblNumeroEntrada;
     private javax.swing.JLabel lblZona;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JButton getBtnCerrarTicket() { 
+        return btnCerrarTicket; 
+    }
+    public javax.swing.JLabel getLblConcierto() { 
+        return lblConcierto; 
+    }
+    public javax.swing.JLabel getLblMonto() { 
+        return lblMonto; 
+    }
+    public javax.swing.JLabel getLblNumeroEntrada() { 
+        return lblNumeroEntrada; 
+    }
+    public javax.swing.JLabel getLblZona() { 
+        return lblZona; 
+    }
+
 }

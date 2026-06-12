@@ -53,6 +53,7 @@ public class VistaHistorialCompras extends javax.swing.JFrame {
         btnAnularCompra.addActionListener(this::btnAnularCompraActionPerformed);
 
         btnVolver.setText("Volver a la Cartelera");
+        btnVolver.addActionListener(this::btnVolverActionPerformed);
 
         jLabel1.setText("Historial de Compra de Entradas");
 
@@ -95,6 +96,10 @@ public class VistaHistorialCompras extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAnularCompraActionPerformed
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -127,4 +132,13 @@ public class VistaHistorialCompras extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaCompras;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JButton getBtnAnularCompra() { 
+        return btnAnularCompra; 
+    }
+    public javax.swing.JButton getBtnVolver() { 
+        return btnVolver; 
+    }
+    public javax.swing.JTable getTablaCompras() { 
+        return tablaCompras; 
+    }
 }
