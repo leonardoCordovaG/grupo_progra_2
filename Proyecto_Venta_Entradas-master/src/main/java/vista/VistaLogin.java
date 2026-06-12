@@ -41,7 +41,8 @@ public class VistaLogin extends JPanel {
                 Cliente c = Cliente.ingresar(usuario, clave);
                 if (c != null) {
                     JOptionPane.showMessageDialog(this, "Bienvenido " + c.getNombres());
-                    // nav.cambiarVista("Cartelera"); // Integrante 2
+                    nav.setClienteActual(c);
+                    nav.cambiarVista("Catalogo");
                 } else {
                     JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
                 }
