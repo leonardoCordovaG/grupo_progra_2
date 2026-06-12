@@ -34,5 +34,40 @@ public class Zona {
     public Entrada[] venderEntrada(int numero){
         return lista_entradas;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public Entrada[] getLista_entradas() {
+        return lista_entradas;
+    }
+
+    public void setLista_entradas(Entrada[] lista_entradas) {
+        this.lista_entradas = lista_entradas;
+    }
+    
+    
+    
     
 }

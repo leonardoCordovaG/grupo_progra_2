@@ -39,9 +39,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="spnCapacidadZona" min="-2" max="-2" attributes="0"/>
                           <Component id="txtNombreZona" alignment="0" pref="132" max="32767" attributes="0"/>
                           <Component id="txtPrecioZona" alignment="0" max="32767" attributes="0"/>
+                          <Component id="spnCapacidadZona" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="98" max="32767" attributes="0"/>
                   </Group>

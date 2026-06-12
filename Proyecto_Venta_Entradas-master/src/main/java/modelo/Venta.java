@@ -20,7 +20,23 @@ public class Venta {
     }
     
     public boolean anular(){
-        return false;
+        return true;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public int getMonto() {
+        return monto;
+    }
+
+    public void setMonto(int monto) {
+        this.monto = monto;
     }
     
 }
