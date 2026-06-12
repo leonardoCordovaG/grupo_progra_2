@@ -31,12 +31,12 @@ public class VistaLogin extends JPanel {
         JButton btnIrRegistro = new JButton("Crear nueva cuenta");
 
         btnIngresar.addActionListener((ActionEvent e) -> {
-            String usuario = txtUsuario.getText();
-            String clave = new String(txtClave.getPassword());
+            String usuario = txtUsuario.getText().trim();
+            String clave = new String(txtClave.getPassword()).trim();
 
             if (usuario.equals("admin") && clave.equals("admin123")) {
                 JOptionPane.showMessageDialog(this, "Bienvenido Administrador");
-                // nav.cambiarVista("DashboardAdmin"); // Integrante 5
+                nav.abrirDashboardAdmin();
             } else {
                 Cliente c = Cliente.ingresar(usuario, clave);
                 if (c != null) {
@@ -53,7 +53,7 @@ public class VistaLogin extends JPanel {
 
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2; add(lblTitulo, gbc);
         gbc.gridwidth = 1;
-        gbc.gridy = 1; add(new JLabel("Usuario:"), gbc); gbc.gridx = 1; add(txtUsuario, gbc);
+        gbc.gridy = 1; add(new JLabel("DNI:"), gbc); gbc.gridx = 1; add(txtUsuario, gbc);
         gbc.gridx = 0; gbc.gridy = 2; add(new JLabel("Contraseña:"), gbc); gbc.gridx = 1; add(txtClave, gbc);
         gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2; add(btnIngresar, gbc);
         gbc.gridy = 4; add(btnIrRegistro, gbc);

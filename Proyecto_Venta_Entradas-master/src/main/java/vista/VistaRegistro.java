@@ -34,10 +34,10 @@ public class VistaRegistro extends JPanel {
         JButton btnVolver = new JButton("Volver al Login");
 
         btnRegistrar.addActionListener((ActionEvent e) -> {
-            String nombres = txtNombres.getText();
-            String apellidos = txtApellidos.getText();
-            String dni = txtDni.getText();
-            String clave = new String(txtClave.getPassword());
+            String nombres = txtNombres.getText().trim();
+            String apellidos = txtApellidos.getText().trim();
+            String dni = txtDni.getText().trim();
+            String clave = new String(txtClave.getPassword()).trim();
 
             // Validación simple
             if (nombres.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || clave.isEmpty()) {
@@ -69,7 +69,7 @@ public class VistaRegistro extends JPanel {
         gbc.gridx = 0; gbc.gridy = 2; add(new JLabel("Apellidos:"), gbc); 
         gbc.gridx = 1; add(txtApellidos, gbc);
         
-        gbc.gridx = 0; gbc.gridy = 3; add(new JLabel("DNI (Usuario):"), gbc); 
+        gbc.gridx = 0; gbc.gridy = 3; add(new JLabel("DNI:"), gbc);
         gbc.gridx = 1; add(txtDni, gbc);
         
         gbc.gridx = 0; gbc.gridy = 4; add(new JLabel("Contraseña:"), gbc); 
