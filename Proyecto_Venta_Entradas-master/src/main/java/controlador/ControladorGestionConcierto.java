@@ -2,30 +2,30 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Concierto;
+import modelo.ConciertoArreglo;
 import modelo.Zona;
 import vista.frmGestionConcierto;
 import vista.dlgZona;
 
 public class ControladorGestionConcierto implements ActionListener {
     private frmGestionConcierto vista;
-    private ArrayList<Concierto> listaGlobalConciertos;
+    private ConciertoArreglo listaGlobalConciertos;
     private DefaultTableModel modeloTabla;
-    private Concierto conciertoTemporal; 
+    private Concierto conciertoTemporal;
 
-    public ControladorGestionConcierto(frmGestionConcierto vista, ArrayList<Concierto> listaGlobalConciertos) {
+    public ControladorGestionConcierto(frmGestionConcierto vista, ConciertoArreglo listaGlobalConciertos) {
         this.vista = vista;
         this.listaGlobalConciertos = listaGlobalConciertos;
         this.conciertoTemporal = new Concierto("", new Date());
-        
+
         this.vista.btnAbrirAñadirZona.addActionListener(this);
         this.vista.btnEliminarZonaSeleccionada.addActionListener(this);
         this.vista.btnRegistrarConcierto.addActionListener(this);
-        
+
         this.modeloTabla = (DefaultTableModel) this.vista.tblZonasConcierto.getModel();
         this.modeloTabla.setRowCount(0);
     }
@@ -37,7 +37,6 @@ public class ControladorGestionConcierto implements ActionListener {
         vista.setVisible(true);
     }
 
-
     public void recibirNuevaZona(Zona nuevaZona) {
         conciertoTemporal.agregarZona(nuevaZona);
         refrescarTabla();
@@ -46,7 +45,7 @@ public class ControladorGestionConcierto implements ActionListener {
     private void refrescarTabla() {
         modeloTabla.setRowCount(0);
         for (Zona z : conciertoTemporal.getListaZonas()) {
-            modeloTabla.addRow(new Object[]{z.getNombre(), z.getCapacidad(), z.getPrecio()});
+            modeloTabla.addRow(new Object[]{ z.getNombre(), z.getCapacidad(), z.getPrecio() });
         }
     }
 
@@ -54,8 +53,9 @@ public class ControladorGestionConcierto implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.btnAbrirAñadirZona) {
             dlgZona vistaZona = new dlgZona(vista, true);
-            new ControladorZona(vistaZona, this).iniciar();
-        } 
+            ControladorZona controlador = new ControladorZona(vistaZona, this);
+            controlador.iniciar();
+        }
         else if (e.getSource() == vista.btnEliminarZonaSeleccionada) {
             int fila = vista.tblZonasConcierto.getSelectedRow();
             if (fila != -1) {
@@ -65,7 +65,7 @@ public class ControladorGestionConcierto implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(vista, "Seleccione una zona de la tabla para eliminar.");
             }
-        } 
+        }
         else if (e.getSource() == vista.btnRegistrarConcierto) {
             String nombre = vista.txtNombreConcierto.getText().trim();
             if (nombre.isEmpty()) {
@@ -81,8 +81,8 @@ public class ControladorGestionConcierto implements ActionListener {
             for (Zona z : conciertoTemporal.getListaZonas()) {
                 conciertoFinal.agregarZona(z);
             }
-            
-            listaGlobalConciertos.add(conciertoFinal);
+
+            listaGlobalConciertos.agregar(conciertoFinal);
             JOptionPane.showMessageDialog(vista, "¡Concierto '" + nombre + "' registrado de forma exitosa!");
             vista.dispose();
         }

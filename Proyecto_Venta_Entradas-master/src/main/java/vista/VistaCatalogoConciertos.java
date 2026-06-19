@@ -1,107 +1,64 @@
 package vista;
 
-import com.mycompany.proyectoventa_de_entradas.ProyectoVenta_de_Entradas;
-import modelo.Concierto;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.net.URL;
-import java.util.List;
 
-public class VistaCatalogoConciertos extends JPanel {
+public class VistaCatalogoConciertos extends JFrame {
 
-    private final ProyectoVenta_de_Entradas nav;
-    private final DefaultTableModel modeloTabla;
-    private final JTable tablaCatalogo;
+    public DefaultTableModel modeloTabla;
+    public JTable            tablaCatalogo;
+    public JButton           btnVerDetalle;
+    public JButton           btnMisCompras;
+    public JButton           btnCerrarSesion;
 
-    public VistaCatalogoConciertos(ProyectoVenta_de_Entradas nav) {
-        this.nav = nav;
-        setLayout(new BorderLayout(10, 10));
-        setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
+    public VistaCatalogoConciertos() {
+        setTitle("Catálogo de Conciertos");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
 
-        // --- Banner con imagen ---
-        add(crearBanner(), BorderLayout.NORTH);
+        JPanel content = new JPanel(new BorderLayout(10, 10));
+        content.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
+        setContentPane(content);
 
-        // --- Tabla de conciertos ---
+        content.add(crearBanner(), BorderLayout.NORTH);
+
         String[] columnas = {"Concierto", "Fecha", "Zonas"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
-            @Override
-            public boolean isCellEditable(int row, int col) { return false; }
+            @Override public boolean isCellEditable(int row, int col) { return false; }
         };
         tablaCatalogo = new JTable(modeloTabla);
         tablaCatalogo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablaCatalogo.setRowHeight(28);
         tablaCatalogo.getTableHeader().setFont(new Font("Arial", Font.BOLD, 13));
-        add(new JScrollPane(tablaCatalogo), BorderLayout.CENTER);
+        content.add(new JScrollPane(tablaCatalogo), BorderLayout.CENTER);
 
-        // --- Botones ---
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        JButton btnVerDetalle  = new JButton("Ver detalle del concierto");
-        JButton btnMisCompras  = new JButton("Mis compras");
-        JButton btnCerrarSesion = new JButton("Cerrar sesión");
+        btnVerDetalle   = new JButton("Ver detalle del concierto");
+        btnMisCompras   = new JButton("Mis compras");
+        btnCerrarSesion = new JButton("Cerrar sesión");
         panelBotones.add(btnVerDetalle);
         panelBotones.add(btnMisCompras);
         panelBotones.add(btnCerrarSesion);
-        add(panelBotones, BorderLayout.SOUTH);
-
-        btnVerDetalle.addActionListener(e -> {
-            int fila = tablaCatalogo.getSelectedRow();
-            if (fila < 0) {
-                JOptionPane.showMessageDialog(this, "Selecciona un concierto de la lista.");
-                return;
-            }
-            List<Concierto> catalogo = Concierto.getCatalogo();
-            nav.setConciertoSeleccionado(catalogo.get(fila));
-            nav.cambiarVista("DetalleConcierto");
-        });
-
-        btnMisCompras.addActionListener(e -> {
-            VistaHistorialCompras vistaHistorial = new VistaHistorialCompras();
-            vistaHistorial.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-            new controlador.ControladorHistorial(vistaHistorial, nav.getClienteActual());
-            vistaHistorial.setTitle("Mis Compras — " + nav.getClienteActual().getNombres());
-            vistaHistorial.setLocationRelativeTo(null);
-            vistaHistorial.setVisible(true);
-        });
-
-        btnCerrarSesion.addActionListener(e -> {
-            nav.setClienteActual(null);
-            nav.cambiarVista("Login");
-        });
+        content.add(panelBotones, BorderLayout.SOUTH);
     }
 
     private JPanel crearBanner() {
         JPanel banner = new JPanel(new BorderLayout());
-
-        // Imagen
         URL imgUrl = getClass().getResource("/imagenes/zona_imagen.png");
         if (imgUrl != null) {
-            ImageIcon iconOriginal = new ImageIcon(imgUrl);
-            Image imgEscalada = iconOriginal.getImage().getScaledInstance(760, 150, Image.SCALE_SMOOTH);
-            JLabel lblImagen = new JLabel(new ImageIcon(imgEscalada));
+            ImageIcon icon = new ImageIcon(imgUrl);
+            Image img = icon.getImage().getScaledInstance(760, 150, Image.SCALE_SMOOTH);
+            JLabel lblImagen = new JLabel(new ImageIcon(img));
             lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
             banner.add(lblImagen, BorderLayout.CENTER);
         }
-
-        // Título sobre la imagen (panel transparente encima)
         JLabel lblTitulo = new JLabel("Conciertos Disponibles", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 22));
         lblTitulo.setForeground(Color.WHITE);
-        lblTitulo.setOpaque(false);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
         banner.add(lblTitulo, BorderLayout.SOUTH);
-
         return banner;
-    }
-
-    public void refresh() {
-        modeloTabla.setRowCount(0);
-        for (Concierto c : Concierto.getCatalogo()) {
-            modeloTabla.addRow(new Object[]{
-                c.getNombre(),
-                c.getFechaFormateada(),
-                c.getZonas().size() + " zona(s)"
-            });
-        }
     }
 }

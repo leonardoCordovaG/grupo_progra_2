@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
+import modelo.Entrada;
 import modelo.Venta;
 import vista.VistaHistorialCompras;
 
@@ -19,36 +20,32 @@ public class ControladorHistorial {
     }
 
     private void initListeners() {
-        vista.getBtnAnularCompra().addActionListener(e -> {
-            int fila = vista.getTablaCompras().getSelectedRow();
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(vista, "Selecciona una compra de la tabla.");
-                return;
-            }
-
-            int confirm = JOptionPane.showConfirmDialog(vista,
-                "¿Confirmar la anulación de esta compra?",
-                "Anular compra", JOptionPane.YES_NO_OPTION);
-            if (confirm != JOptionPane.YES_OPTION) return;
-
-            Venta venta = cliente.getVentas().get(fila);
-
-            // Liberar las entradas de vuelta a disponible
-            if (venta.getZonaAsociada() != null) {
-                modelo.Entrada[] entradas = venta.getZonaAsociada().mostrarEntrada();
-                int liberadas = 0;
-                for (modelo.Entrada en : entradas) {
-                    if (liberadas >= venta.getCantidadEntradas()) break;
-                    if (en != null && en.liberar()) liberadas++;
-                }
-            }
-
-            cliente.getVentas().remove(fila);
-            actualizarTabla();
-            JOptionPane.showMessageDialog(vista, "Compra anulada correctamente.");
-        });
-
+        vista.getBtnAnularCompra().addActionListener(e -> procesarAnulacion());
         vista.getBtnVolver().addActionListener(e -> vista.dispose());
+    }
+
+    private void procesarAnulacion() {
+        int fila = vista.getTablaCompras().getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(vista, "Selecciona una compra de la tabla.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(vista,
+            "Confirmar la anulacion de esta compra?",
+            "Anular compra", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        Venta venta = cliente.getVentas().get(fila);
+
+        // Liberar exactamente las entradas que se vendieron en esta compra
+        for (Entrada en : venta.getEntradasVendidas()) {
+            en.liberar();
+        }
+
+        cliente.getVentas().remove(fila);
+        actualizarTabla();
+        JOptionPane.showMessageDialog(vista, "Compra anulada correctamente.");
     }
 
     public void actualizarTabla() {

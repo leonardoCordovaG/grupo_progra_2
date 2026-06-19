@@ -1,6 +1,8 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Venta {
     private Date fecha;
@@ -9,6 +11,7 @@ public class Venta {
     private Entrada entradaAsociada;
     private String conciertoNombre;
     private int cantidadEntradas;
+    private List<Entrada> entradasVendidas = new ArrayList<>();
 
     public Venta(Date fecha, int monto) {
         this.fecha = fecha;
@@ -42,6 +45,11 @@ public class Venta {
 
     public int getMonto() { return monto; }
     public void setMonto(int monto) { this.monto = monto; }
+
+    public void setCantidadEntradas(int n) { this.cantidadEntradas = n; }
+
+    public void agregarEntradaVendida(Entrada e) { entradasVendidas.add(e); }
+    public List<Entrada> getEntradasVendidas()   { return entradasVendidas; }
 
     public Zona getZonaAsociada() { return zonaAsociada; }
     public Entrada getEntradaAsociada() { return entradaAsociada; }

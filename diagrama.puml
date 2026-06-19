@@ -8,11 +8,13 @@ skinparam class {
     ArrowColor #586E75
 }
 
-class Persona {
+' ─── Jerarquía de personas ───────────────────────────────────────
+
+abstract class Persona {
     - nombres : String
     - apellidos : String
     - dni : String
-    - contraseña : String
+    - contrasena : String
 
     + registrarTarjeta() : boolean
     + eliminarTarjeta() : boolean
@@ -23,21 +25,31 @@ class Persona {
 class Cliente {
     - puntos : int
 
-    - ingresar(usuario : String, clave : String)
+    + agregarTarjeta(t : Tarjeta) : boolean
+    + quitarTarjeta(t : Tarjeta) : boolean
+    + agregarVenta(v : Venta) : void
 }
 
 class Usuario {
     - estado : boolean
 
-    + registrarZonas()
+    + registrarZonas() : void
 }
+
+class Administrador {
+    + gestionarConciertos() : void
+    + anularVenta() : boolean
+}
+
+' ─── Dominio del concierto ───────────────────────────────────────
 
 class Concierto {
     - nombre : String
     - fecha : Date
 
-    + agregarZona(nombre : String) : boolean
-    + eliminarZona(nombre : String) : boolean
+    + agregarZona(zona : Zona) : boolean
+    + eliminarZona(nombreZona : String) : boolean
+    + getFechaFormateada() : String
 }
 
 class Zona {
@@ -46,50 +58,61 @@ class Zona {
     - precio : int
 
     + generarEntradas() : boolean
-    + mostrarEntrada() : Entrada[]
     + venderEntrada(numero : int) : Entrada[]
+    + getDisponibles() : int
 }
 
 class Entrada {
     - numero : int
     - estado : String
 
-    + vender() : Boolean
-    + liberar() : Boolean
+    + vender() : boolean
+    + liberar() : boolean
 }
+
+' ─── Transacción ─────────────────────────────────────────────────
 
 class Venta {
     - fecha : Date
     - monto : int
+    - conciertoNombre : String
+    - cantidadEntradas : int
 
     + anular() : boolean
+    + getConciertoNombre() : String
+    + getCantidadEntradas() : int
 }
 
 class Tarjeta {
-    - numero : int
+    - numero : long
     - nombre : String
     - fecha : String
     - CVV : int
 
-    + method() : Type
+    + getNumeroEnmascarado() : String
 }
 
-' Herencia
+
+' ─── Herencia ────────────────────────────────────────────────────
+
 Persona <|-- Cliente
-
-' Asociaciones
 Persona <|-- Usuario
+Persona <|-- Administrador
 
-Usuario o-- Concierto
+' ─── Asociaciones (sin pertenencia, con cardinalidad) ────────────
 
-Concierto "1" *-- "*" Zona
+Usuario    "1"    --  "*"    Concierto
+Concierto  "1"    --  "*"    Zona
+Zona       "1"    --  "*"    Entrada
 
-Zona "1" *-- "*" Entrada
+Cliente    "1"    --  "*"    Tarjeta
+Cliente    "1"    --  "*"    Venta
 
-Cliente "1" *-- "1" Tarjeta
+Venta      "1"    --  "1"    Zona
+Venta      "1"    --  "1"    Entrada
 
-Cliente "1" --o "*" Venta
+Administrador  "1"  --  "*"  Concierto
+Administrador  "1"  --  "*"  Venta
 
-Venta "1" o-- "1..4" Entrada
 
 @enduml

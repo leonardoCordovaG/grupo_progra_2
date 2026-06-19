@@ -3,23 +3,23 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Venta;
+import modelo.VentaArreglo;
 import vista.dlgPanelAnulaciones;
 
 public class ControladorPanelAnulaciones implements ActionListener {
     private dlgPanelAnulaciones vista;
-    private ArrayList<Venta> listaVentas;
+    private VentaArreglo listaVentas;
     private DefaultTableModel modeloTabla;
     private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-    public ControladorPanelAnulaciones(dlgPanelAnulaciones vista, ArrayList<Venta> listaVentas) {
+    public ControladorPanelAnulaciones(dlgPanelAnulaciones vista, VentaArreglo listaVentas) {
         this.vista = vista;
         this.listaVentas = listaVentas;
         this.vista.btnAnularVenta.addActionListener(this);
-        
+
         this.modeloTabla = (DefaultTableModel) this.vista.tblVentasGlobales.getModel();
     }
 
@@ -45,14 +45,13 @@ public class ControladorPanelAnulaciones implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.btnAnularVenta) {
-            int filaSeleccionada = vista.tblVentasGlobales.getSelectedRow();
-            if (filaSeleccionada != -1) {
-                Venta ventaObj = listaVentas.get(filaSeleccionada);
-                
+            int fila = vista.tblVentasGlobales.getSelectedRow();
+            if (fila != -1) {
+                Venta ventaObj = listaVentas.obtener(fila);
                 if (ventaObj.anular()) {
-                    listaVentas.remove(filaSeleccionada); 
+                    listaVentas.eliminar(fila);
                     JOptionPane.showMessageDialog(vista, "Operación anulada exitosamente.");
-                    cargarTablaVentas(); 
+                    cargarTablaVentas();
                 }
             } else {
                 JOptionPane.showMessageDialog(vista, "Seleccione un registro de la tabla para proceder.");
