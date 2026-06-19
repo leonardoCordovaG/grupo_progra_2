@@ -9,7 +9,7 @@ package vista;
  * @author juane
  */
 public class frmAdminDashboard extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmAdminDashboard.class.getName());
 
     /**
@@ -32,6 +32,7 @@ public class frmAdminDashboard extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         btnGestionarConciertos = new javax.swing.JButton();
         btnPanelAnulaciones = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -42,6 +43,9 @@ public class frmAdminDashboard extends javax.swing.JFrame {
         btnGestionarConciertos.setText("Gestionar Conciertos y Zonas");
 
         btnPanelAnulaciones.setText("Panel de Anulaciones Globales");
+
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(this::btnCerrarSesionActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,21 +58,35 @@ public class frmAdminDashboard extends javax.swing.JFrame {
                     .addComponent(btnGestionarConciertos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(101, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(146, 146, 146))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(lblTitulo)
-                .addGap(44, 44, 44)
+                .addGap(34, 34, 34)
                 .addComponent(btnGestionarConciertos)
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addComponent(btnPanelAnulaciones)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(btnCerrarSesion)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // manejado por ControladorAdminDashboard
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    public javax.swing.JButton getBtnCerrarSesion() {
+        return btnCerrarSesion;
+    }
 
     /**
      * @param args the command line arguments
@@ -96,6 +114,7 @@ public class frmAdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrarSesion;
     public javax.swing.JButton btnGestionarConciertos;
     public javax.swing.JButton btnPanelAnulaciones;
     private javax.swing.JButton jButton1;

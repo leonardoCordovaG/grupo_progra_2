@@ -22,6 +22,7 @@ public class ControladorLogin {
             if (usuario.equals("admin") && clave.equals("admin123")) {
                 // Ingresar como admin
                 JOptionPane.showMessageDialog(vista, "Bienvenido Administrador");
+                vista.dispose(); // cerrar el login antes de abrir el panel admin
 
                 // Cargamos la vista de admin
                 frmAdminDashboard dashboard = new frmAdminDashboard();

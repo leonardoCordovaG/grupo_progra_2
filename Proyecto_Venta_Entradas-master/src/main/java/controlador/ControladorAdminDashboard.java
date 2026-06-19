@@ -7,6 +7,7 @@ import modelo.VentaArreglo;
 import vista.frmAdminDashboard;
 import vista.frmGestionConcierto;
 import vista.dlgPanelAnulaciones;
+import vista.VistaLogin;
 
 public class ControladorAdminDashboard implements ActionListener {
     private frmAdminDashboard vista;
@@ -20,6 +21,7 @@ public class ControladorAdminDashboard implements ActionListener {
 
         this.vista.btnGestionarConciertos.addActionListener(this);
         this.vista.btnPanelAnulaciones.addActionListener(this);
+        this.vista.getBtnCerrarSesion().addActionListener(this);
     }
 
     public void iniciar() {
@@ -38,6 +40,12 @@ public class ControladorAdminDashboard implements ActionListener {
         else if (e.getSource() == vista.btnPanelAnulaciones) {
             dlgPanelAnulaciones vistaAnulaciones = new dlgPanelAnulaciones(vista, true);
             ControladorPanelAnulaciones controlador = new ControladorPanelAnulaciones(vistaAnulaciones, listaVentas);
+            controlador.iniciar();
+        }
+        else if (e.getSource() == vista.getBtnCerrarSesion()) {
+            vista.dispose();
+            VistaLogin vistaLogin = new VistaLogin();
+            ControladorLogin controlador = new ControladorLogin(vistaLogin);
             controlador.iniciar();
         }
     }
