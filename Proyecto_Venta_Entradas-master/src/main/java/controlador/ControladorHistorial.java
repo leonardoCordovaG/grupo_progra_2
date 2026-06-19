@@ -1,6 +1,7 @@
 package controlador;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
@@ -31,21 +32,53 @@ public class ControladorHistorial {
             return;
         }
 
+        Venta venta = cliente.getVentas().get(fila);
+        int totalEntradas = venta.getCantidadEntradas();
+
+        // Pedir cuantas entradas anular (entre 1 y el total de esa compra)
+        String input = JOptionPane.showInputDialog(vista,
+            "Cuantas entradas deseas anular? (1 a " + totalEntradas + ")",
+            String.valueOf(totalEntradas));
+        if (input == null) return;
+
+        int cantidadAnular;
+        try {
+            cantidadAnular = Integer.parseInt(input.trim());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(vista, "Ingresa un numero valido.");
+            return;
+        }
+
+        if (cantidadAnular < 1 || cantidadAnular > totalEntradas) {
+            JOptionPane.showMessageDialog(vista,
+                "La cantidad debe estar entre 1 y " + totalEntradas + ".");
+            return;
+        }
+
         int confirm = JOptionPane.showConfirmDialog(vista,
-            "Confirmar la anulacion de esta compra?",
-            "Anular compra", JOptionPane.YES_NO_OPTION);
+            "Confirmar anulacion de " + cantidadAnular + " entrada(s)?",
+            "Anular", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) return;
 
-        Venta venta = cliente.getVentas().get(fila);
-
-        // Liberar exactamente las entradas que se vendieron en esta compra
-        for (Entrada en : venta.getEntradasVendidas()) {
+        // Liberar exactamente las N entradas especificas de esta compra
+        List<Entrada> entradasVendidas = venta.getEntradasVendidas();
+        for (int i = 0; i < cantidadAnular; i++) {
+            Entrada en = entradasVendidas.remove(0);
             en.liberar();
         }
 
-        cliente.getVentas().remove(fila);
+        if (cantidadAnular == totalEntradas) {
+            // Anulacion total: sacar la venta del historial
+            cliente.getVentas().remove(fila);
+        } else {
+            // Anulacion parcial: actualizar cantidad y monto en la misma venta
+            int precioPorEntrada = venta.getZonaAsociada().getPrecio();
+            venta.setCantidadEntradas(totalEntradas - cantidadAnular);
+            venta.setMonto(venta.getMonto() - (precioPorEntrada * cantidadAnular));
+        }
+
         actualizarTabla();
-        JOptionPane.showMessageDialog(vista, "Compra anulada correctamente.");
+        JOptionPane.showMessageDialog(vista, cantidadAnular + " entrada(s) anulada(s).");
     }
 
     public void actualizarTabla() {

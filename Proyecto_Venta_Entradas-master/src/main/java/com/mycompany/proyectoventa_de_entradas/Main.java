@@ -16,6 +16,8 @@ public class Main {
         Sistema.clientes.agregar(new Cliente(0, "Admin",  "",        "admin",    "admin123"));
         Sistema.clientes.agregar(new Cliente(0, "Juan",   "Pérez",   "12345678", "1234"));
         Sistema.clientes.agregar(new Cliente(0, "María",  "García",  "87654321", "abcd"));
+        Sistema.clientes.agregar(new Cliente(0, "Kepler",  "García",  "7057", "123"));
+
 
         Calendar cal = Calendar.getInstance();
 
