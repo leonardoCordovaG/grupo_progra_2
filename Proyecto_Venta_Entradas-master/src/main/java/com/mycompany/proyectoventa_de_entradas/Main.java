@@ -2,7 +2,6 @@ package com.mycompany.proyectoventa_de_entradas;
 
 import controlador.ControladorLogin;
 import data.Sistema;
-import modelo.Cliente;
 import modelo.Concierto;
 import modelo.Zona;
 import vista.VistaLogin;
@@ -12,12 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Hardcodeamos datos en memoria al arrancar el programa
-        Sistema.clientes.agregar(new Cliente(0, "Admin",  "",        "admin",    "admin123"));
-        Sistema.clientes.agregar(new Cliente(0, "Juan",   "Pérez",   "12345678", "1234"));
-        Sistema.clientes.agregar(new Cliente(0, "María",  "García",  "87654321", "abcd"));
-        Sistema.clientes.agregar(new Cliente(0, "Kepler",  "García",  "7057", "123"));
-
+        // Cargar datos de usuarios
+        Sistema.inicializar();
 
         Calendar cal = Calendar.getInstance();
 
