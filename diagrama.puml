@@ -1,118 +1,110 @@
 @startuml Proyecto_Venta_Entradas
-title Diagrama de Clases - Modelo (Proyecto Venta de Entradas)
+title Diagrama de Clases (Proyecto Venta de Entradas)
 
 skinparam classAttributeIconSize 0
 skinparam class {
     BackgroundColor #FDF6E3
-    BorderColor #586E75
-    ArrowColor #586E75
+    BorderColor #586675
+    ArrowColor #2c2a36
 }
 
-' ─── Jerarquía de personas ───────────────────────────────────────
+' ===================== PERSONAS =====================
 
 abstract class Persona {
     - nombres : String
     - apellidos : String
     - dni : String
     - contrasena : String
-
-    + registrarTarjeta() : boolean
-    + eliminarTarjeta() : boolean
-    + anularVenta() : boolean
-    + comprar() : boolean
 }
 
 class Cliente {
-    - puntos : int
-
+    + comprar() : boolean
     + agregarTarjeta(t : Tarjeta) : boolean
-    + quitarTarjeta(t : Tarjeta) : boolean
-    + agregarVenta(v : Venta) : void
-}
-
-class Usuario {
-    - estado : boolean
-
-    + registrarZonas() : void
+    + eliminarTarjeta(t : Tarjeta) : boolean
+    + consultarCompras() : void
+    + consultarZonasDisponibles() : void
 }
 
 class Administrador {
-    + gestionarConciertos() : void
-    + anularVenta() : boolean
+    + registrarConcierto(c : Concierto) : boolean
+    + eliminarConcierto(c : Concierto) : boolean
+    + registrarZona(z : Zona) : boolean
+    + modificarZona(z : Zona) : boolean
+    + consultarVentas() : void
 }
 
-' ─── Dominio del concierto ───────────────────────────────────────
+Persona <|-- Cliente
+Persona <|-- Administrador
+
+
+' ===================== CONCIERTOS =====================
 
 class Concierto {
     - nombre : String
     - fecha : Date
 
-    + agregarZona(zona : Zona) : boolean
-    + eliminarZona(nombreZona : String) : boolean
-    + getFechaFormateada() : String
+    + agregarZona(z : Zona) : boolean
+    + eliminarZona(nombre : String) : boolean
 }
 
 class Zona {
     - nombre : String
-    - capacidad : int
-    - precio : int
+    - precio : double
+    - capacidadTotal : int
 
-    + generarEntradas() : boolean
-    + venderEntrada(numero : int) : Entrada[]
     + getDisponibles() : int
 }
 
 class Entrada {
     - numero : int
+    - asiento : String
     - estado : String
+    ' estado : DISPONIBLE , VENDIDA
 
     + vender() : boolean
-    + liberar() : boolean
+    + anular() : boolean
 }
 
-' ─── Transacción ─────────────────────────────────────────────────
+
+' ===================== VENTAS =====================
 
 class Venta {
     - fecha : Date
-    - monto : int
-    - conciertoNombre : String
-    - cantidadEntradas : int
+    - monto : double
 
-    + anular() : boolean
-    + getConciertoNombre() : String
-    + getCantidadEntradas() : int
+    + anularEntrada() : boolean
+    + calcularMonto() : double
+}
+
+class DetalleVenta {
+    - precioUnitario : double
+    - estado : String
+    - fechaAnulacion : Date
+
+    ' estado: ACTIVO, ANULADO
 }
 
 class Tarjeta {
     - numero : long
-    - nombre : String
-    - fecha : String
-    - CVV : int
+    - nombreTitular : String
+    - fechaVencimiento : String
+    - cvv : int
 
     + getNumeroEnmascarado() : String
 }
 
 
-' ─── Herencia ────────────────────────────────────────────────────
+' ===================== RELACIONES =====================
 
-Persona <|-- Cliente
-Persona <|-- Usuario
-Persona <|-- Administrador
+Concierto "1" *-- "1..4" Zona
+Zona "1" *-- "1..*" Entrada
 
-' ─── Asociaciones (sin pertenencia, con cardinalidad) ────────────
+Cliente "1" --> "0..*" Tarjeta
+Cliente "1" --> "0..*" Venta
 
-Usuario    "1"    --  "*"    Concierto
-Concierto  "1"    --  "*"    Zona
-Zona       "1"    --  "*"    Entrada
+Tarjeta "1" <-- "0..*" Venta
 
-Cliente    "1"    --  "*"    Tarjeta
-Cliente    "1"    --  "*"    Venta
-
-Venta      "1"    --  "1"    Zona
-Venta      "1"    --  "1"    Entrada
-
-Administrador  "1"  --  "*"  Concierto
-Administrador  "1"  --  "*"  Venta
-
+Venta "1" *-- "1..4" DetalleVenta
+DetalleVenta "*" --> "1" Entrada
 
 @enduml

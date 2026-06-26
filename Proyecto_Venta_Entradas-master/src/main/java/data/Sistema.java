@@ -12,14 +12,21 @@ import modelo.Tarjeta;
 // Centraliza todas las colecciones compartidas por la aplicación.
 public class Sistema {
 
-    public static ClienteArreglo   clientes   = new ClienteArreglo(50);
+    public static ClienteArreglo clientes = new ClienteArreglo(50);
     public static ConciertoArreglo conciertos = new ConciertoArreglo(20);
-    public static VentaArreglo     ventas     = new VentaArreglo(200);
+    public static VentaArreglo ventas = new VentaArreglo(200);
+
+    // Usuario administrador del sistema
+    public static Cliente admin = new Cliente(0, "Admin", "", "admin", "admin123");
+
+    static {
+        clientes.agregar(admin);
+    }
 
     // Info de la sesión del usuario activo
-    public static Cliente  clienteActual         = null;
+    public static Cliente clienteActual = null;
     public static Concierto conciertoSeleccionado = null;
-    public static Zona     zonaSeleccionada       = null;
-    public static int      cantidadEntradas       = 0;
-    public static Tarjeta  tarjetaSeleccionada    = null;
+    public static Zona zonaSeleccionada = null;
+    public static int cantidadEntradas = 0;
+    public static Tarjeta tarjetaSeleccionada = null;
 }

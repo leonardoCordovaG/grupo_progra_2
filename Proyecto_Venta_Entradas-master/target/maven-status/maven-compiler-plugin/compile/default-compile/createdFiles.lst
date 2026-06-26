@@ -6,7 +6,6 @@ vista\frmAdminDashboard.class
 controlador\ControladorConfirmacion.class
 com\mycompany\proyectoventa_de_entradas\Main.class
 controlador\ControladorPanelAnulaciones.class
-modelo\Usuario.class
 vista\dlgPanelAnulaciones$1$1.class
 vista\dlgZona$1$1.class
 vista\frmGestionConcierto.class
