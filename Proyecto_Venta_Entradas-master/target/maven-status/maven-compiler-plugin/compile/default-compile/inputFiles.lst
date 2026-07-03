@@ -1,37 +1,37 @@
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\com\mycompany\proyectoventa_de_entradas\Main.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorAdminDashboard.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorCatalogo.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorConfirmacion.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorDetalle.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorGestionConcierto.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorHistorial.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorLogin.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorPanelAnulaciones.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorRegistro.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorTarjetas.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorTicket.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorZona.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\data\Sistema.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Cliente.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\ClienteArreglo.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Concierto.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\ConciertoArreglo.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Entrada.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Persona.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Tarjeta.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Venta.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\VentaArreglo.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Zona.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\dlgAlertaConfirmacionUsuario.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\dlgDetalleConciertoUsuario.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\dlgPanelAnulaciones.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\dlgZona.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\frmAdminDashboard.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\frmGestionConcierto.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaCatalogoConciertos.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaConfirmacionPago.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaHistorialCompras.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaLogin.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaMisTarjetas.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaRegistro.java
-C:\Users\Keple\Desktop\Ciclo V\Código\programacion-ii\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaTicketVirtual.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\com\mycompany\proyectoventa_de_entradas\Main.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorAdminDashboard.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorCatalogo.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorConfirmacion.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorDetalle.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorGestionConcierto.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorHistorial.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorLogin.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorPanelAnulaciones.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorRegistro.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorTarjetas.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorTicket.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\controlador\ControladorZona.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\data\Sistema.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Cliente.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\ClienteArreglo.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Concierto.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\ConciertoArreglo.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Entrada.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Persona.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Tarjeta.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Venta.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\VentaArreglo.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\modelo\Zona.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\dlgAlertaConfirmacionUsuario.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\dlgDetalleConciertoUsuario.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\dlgPanelAnulaciones.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\dlgZona.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\frmAdminDashboard.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\frmGestionConcierto.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaCatalogoConciertos.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaConfirmacionPago.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaHistorialCompras.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaLogin.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaMisTarjetas.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaRegistro.java
+C:\Users\F20LAB207E19\Desktop\grupo_progra_2\Proyecto_Venta_Entradas-master\src\main\java\vista\VistaTicketVirtual.java

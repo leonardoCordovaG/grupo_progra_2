@@ -22,6 +22,7 @@ public class Sistema {
     public static Cliente cliente1 = new Cliente(0, "Juan", "Pérez", "12345678", "1234");
     public static Cliente cliente2 = new Cliente(0, "María", "García", "87654321", "abcd");
     public static Cliente cliente3 = new Cliente(0,"Kepler","García","7057","123");
+    public static Cliente cliente4 = new Cliente(0,"Manuel","Santa Cruz","112233","1234");
 
     public static void inicializar() {
         clientes.agregar(admin);
@@ -29,6 +30,7 @@ public class Sistema {
         clientes.agregar(cliente1);
         clientes.agregar(cliente2);
         clientes.agregar(cliente3);
+        clientes.agregar(cliente4);
     }
 
     // Info de la sesión del usuario activo

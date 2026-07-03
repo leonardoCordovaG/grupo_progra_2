@@ -18,20 +18,36 @@ public class ControladorRegistro {
             String dni       = vista.txtDni.getText().trim();
             String clave     = new String(vista.txtClave.getPassword()).trim();
 
+            // Verificación básica inicial de campos vacíos en la interfaz
             if (nombres.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || clave.isEmpty()) {
-                JOptionPane.showMessageDialog(vista, "Llene todos los campos");
+                JOptionPane.showMessageDialog(vista, "Llene todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Cliente nuevo = new Cliente(0, nombres, apellidos, dni, clave);
-            if (Sistema.clientes.agregar(nuevo)) {
-                JOptionPane.showMessageDialog(vista, "Registro exitoso. Ya puede iniciar sesión.");
-                vista.dispose();
-                VistaLogin vistaLogin = new VistaLogin();
-                ControladorLogin controlador = new ControladorLogin(vistaLogin);
-                controlador.iniciar();
-            } else {
-                JOptionPane.showMessageDialog(vista, "El DNI ya se encuentra registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                Cliente.verificarTexto(nombres, "nombre");
+                Cliente.verificarTexto(apellidos, "apellido");
+
+                if (!dni.matches("^[0-9]{8}$")) {
+                    throw new IllegalArgumentException("El DNI debe tener exactamente 8 dígitos numéricos.");
+                }
+
+                Cliente.verificarContrasena(clave);
+
+                // Si todo es válido, procedemos a registrar en el arreglo/memoria
+                Cliente nuevo = new Cliente(0, nombres, apellidos, dni, clave);
+                if (Sistema.clientes.agregar(nuevo)) {
+                    JOptionPane.showMessageDialog(vista, "Registro exitoso. Ya puede iniciar sesión.");
+                    vista.dispose();
+                    VistaLogin vistaLogin = new VistaLogin();
+                    ControladorLogin controlador = new ControladorLogin(vistaLogin);
+                    controlador.iniciar();
+                } else {
+                    JOptionPane.showMessageDialog(vista, "El DNI ya se encuentra registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(vista, ex.getMessage(), "Error de Validación", JOptionPane.ERROR_MESSAGE);
             }
         });
 

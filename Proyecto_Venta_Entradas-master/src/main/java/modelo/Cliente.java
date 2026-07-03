@@ -35,4 +35,26 @@ public class Cliente extends Persona {
     public static String getResumenClientes() {
         return ""; // ya no aplica — usar Sistema.clientes
     }
+    
+    public static void verificarTexto(String texto, String tipoCampo) {
+        if (texto == null || texto.trim().isEmpty()) {
+            throw new IllegalArgumentException("El " + tipoCampo + " no puede estar vacío.");
+        }
+        if (!texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+            throw new IllegalArgumentException("El " + tipoCampo + " solo debe contener letras y espacios (sin números).");
+        }
+    }
+    
+    public static void verificarContrasena(String clave) {
+        if (clave == null || clave.trim().isEmpty()) {
+            throw new IllegalArgumentException("La contraseña no puede estar vacía.");
+        }
+        if (clave.length() < 4) {
+            throw new IllegalArgumentException("La contraseña debe tener al menos 4 caracteres.");
+        }
+    
+        if (!clave.matches("^[a-zA-Z0-9@#$%*_\\-\\.]+$")) {
+            throw new IllegalArgumentException("La contraseña contiene caracteres no permitidos. Use letras, números o símbolos comunes (@, #, $, %, *, _, -, .).");
+        }
+}
 }

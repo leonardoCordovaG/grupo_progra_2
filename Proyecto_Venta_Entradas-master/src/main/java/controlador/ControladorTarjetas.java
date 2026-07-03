@@ -95,7 +95,8 @@ public class ControladorTarjetas {
             JOptionPane.showMessageDialog(vista, "Completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        
+        /*
         try {
             long numero = Long.parseLong(numStr);
             int cvv     = Integer.parseInt(cvvStr);
@@ -105,6 +106,24 @@ public class ControladorTarjetas {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(vista,
                 "El número de tarjeta y el CVV deben ser solo dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        */
+        
+        try {
+            long numero = Long.parseLong(numStr);
+            int cvv     = Integer.parseInt(cvvStr);
+
+            Tarjeta nuevaTarjeta = new Tarjeta(numero, nombre, fecha, cvv);
+
+            // Ejecuta las validaciones internas (longitud, letras, formato fecha) antes de guardarla
+            if (nuevaTarjeta.validarTarjeta()) {
+                Sistema.clienteActual.agregarTarjeta(nuevaTarjeta);
+                cargarTarjetas();
+                JOptionPane.showMessageDialog(vista, "Tarjeta registrada correctamente.");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(vista,
+            "El número de tarjeta y el CVV deben ser solo dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
