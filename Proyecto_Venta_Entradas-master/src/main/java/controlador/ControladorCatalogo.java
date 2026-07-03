@@ -32,7 +32,8 @@ public class ControladorCatalogo {
         this.vista.btnMisCompras.addActionListener(e -> {
             VistaHistorialCompras vistaHistorial = new VistaHistorialCompras();
             vistaHistorial.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Evitar que se cierre toda la app al cerrar esta ventana secundaria.
-            
+            new ControladorHistorial(vistaHistorial, Sistema.clienteActual);
+
             vistaHistorial.setTitle("Mis Compras — " + Sistema.clienteActual.getNombres());
             vistaHistorial.setLocationRelativeTo(null);
             vistaHistorial.setVisible(true);
