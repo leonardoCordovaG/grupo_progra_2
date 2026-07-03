@@ -4,7 +4,7 @@ import data.Sistema;
 import modelo.Tarjeta;
 import vista.VistaMisTarjetas;
 import vista.VistaConfirmacionPago;
-import vista.VistaDetalleConcierto;
+import vista.dlgDetalleConciertoUsuario;
 import javax.swing.*;
 import java.awt.*;
 
@@ -46,7 +46,7 @@ public class ControladorTarjetas {
 
         this.vista.btnVolver.addActionListener(e -> {
             vista.dispose();
-            VistaDetalleConcierto vistaDetalle = new VistaDetalleConcierto();
+            dlgDetalleConciertoUsuario vistaDetalle = new dlgDetalleConciertoUsuario(null, true);
             ControladorDetalle controlador = new ControladorDetalle(vistaDetalle);
             controlador.iniciar();
         });

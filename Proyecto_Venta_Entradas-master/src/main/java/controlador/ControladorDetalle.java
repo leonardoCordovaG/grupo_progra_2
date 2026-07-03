@@ -2,41 +2,39 @@ package controlador;
 
 import data.Sistema;
 import modelo.Concierto;
+import modelo.Entrada;
 import modelo.Zona;
-import vista.VistaDetalleConcierto;
+import vista.dlgDetalleConciertoUsuario;
+import vista.dlgAlertaConfirmacionUsuario;
 import vista.VistaCatalogoConciertos;
 import vista.VistaMisTarjetas;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class ControladorDetalle {
-    private VistaDetalleConcierto vista;
+    private dlgDetalleConciertoUsuario vista;
+    private DefaultTableModel modeloAsientos;
 
-    public ControladorDetalle(VistaDetalleConcierto vista) {
+    public ControladorDetalle(dlgDetalleConciertoUsuario vista) {
         this.vista = vista;
 
-        this.vista.btnContinuar.addActionListener(e -> {
-            // Continuar con el pago
-            int fila = vista.tablaZonas.getSelectedRow();
-            if (fila < 0) {
-                JOptionPane.showMessageDialog(vista, "Selecciona una zona primero.");
-                return;
+        this.modeloAsientos = new DefaultTableModel(new Object[]{"Nro Asiento", "Estado", "Agregar"}, 0) {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return columnIndex == 2 ? Boolean.class : Object.class;
             }
-            Zona zona     = Sistema.conciertoSeleccionado.getZonas().get(fila);
-            int cantidad  = (Integer) vista.comboCantidad.getSelectedItem();
 
-            if (zona.getDisponibles() < cantidad) {
-                JOptionPane.showMessageDialog(vista,
-                    "Solo hay " + zona.getDisponibles() + " entradas disponibles en esa zona.",
-                    "Sin disponibilidad", JOptionPane.WARNING_MESSAGE);
-                return;
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2 && "disponible".equals(getValueAt(row, 1));
             }
-            Sistema.zonaSeleccionada   = zona;
-            Sistema.cantidadEntradas   = cantidad;
-            vista.dispose();
-            VistaMisTarjetas vistaTarjetas = new VistaMisTarjetas();
-            ControladorTarjetas controlador = new ControladorTarjetas(vistaTarjetas);
-            controlador.iniciar();
-        });
+        };
+        this.vista.tblAsientos.setModel(modeloAsientos);
+
+        this.vista.cboZona.addActionListener(e -> cargarAsientosZonaSeleccionada());
+
+        this.vista.btnContinuar.addActionListener(e -> confirmarSeleccion());
 
         this.vista.btnVolver.addActionListener(e -> {
             vista.dispose();
@@ -48,21 +46,76 @@ public class ControladorDetalle {
 
     private void cargarDatos() {
         Concierto c = Sistema.conciertoSeleccionado;
-        if (c == null) return;
+        if (c == null)
+            return;
 
-        vista.lblNombre.setText(c.getNombre());
-        vista.lblFecha.setText("Fecha: " + c.getFechaFormateada());
-        vista.modeloTabla.setRowCount(0);
-        
-        for (Zona z : c.getZonas()) {
-            vista.modeloTabla.addRow(new Object[]{
-                z.getNombre(),
-                z.getCapacidad(),
-                "S/ " + z.getPrecio(),
-                z.getDisponibles()
-            });
+        vista.nombreconcierto.setText(c.getNombre());
+        vista.fechaConcierto.setText("Fecha: " + c.getFechaFormateada());
+
+        String[] nombresZonas = new String[c.getZonas().size()];
+        for (int i = 0; i < nombresZonas.length; i++) {
+            nombresZonas[i] = c.getZonas().get(i).getNombre();
         }
-        vista.comboCantidad.setSelectedIndex(0);
+        vista.cboZona.setModel(new DefaultComboBoxModel<>(nombresZonas));
+        cargarAsientosZonaSeleccionada();
+    }
+
+    private void cargarAsientosZonaSeleccionada() {
+        Zona zona = obtenerZonaSeleccionada();
+        modeloAsientos.setRowCount(0);
+        if (zona == null)
+            return;
+
+        vista.lblPrecio.setText("S/ " + zona.getPrecio());
+        for (Entrada ent : zona.mostrarEntrada()) {
+            if (ent == null)
+                continue;
+            modeloAsientos.addRow(new Object[]{ ent.getNumero(), ent.getEstado(), Boolean.FALSE });
+        }
+    }
+
+    private Zona obtenerZonaSeleccionada() {
+        int indice = vista.cboZona.getSelectedIndex();
+        if (indice < 0 || Sistema.conciertoSeleccionado == null)
+            return null;
+        return Sistema.conciertoSeleccionado.getZonas().get(indice);
+    }
+
+    private void confirmarSeleccion() {
+        Zona zona = obtenerZonaSeleccionada();
+        if (zona == null) {
+            JOptionPane.showMessageDialog(vista, "Selecciona una zona primero.");
+            return;
+        }
+
+        int cantidad = 0;
+        for (int fila = 0; fila < modeloAsientos.getRowCount(); fila++) {
+            if (Boolean.TRUE.equals(modeloAsientos.getValueAt(fila, 2))) {
+                cantidad++;
+            }
+        }
+        if (cantidad == 0) {
+            JOptionPane.showMessageDialog(vista, "Selecciona al menos un asiento.");
+            return;
+        }
+
+        Sistema.zonaSeleccionada = zona;
+        Sistema.cantidadEntradas = cantidad;
+
+        dlgAlertaConfirmacionUsuario alerta = new dlgAlertaConfirmacionUsuario(null, true);
+        alerta.setTitle("Confirmar compra");
+
+        alerta.btnConfirmarPago.addActionListener(ev -> {
+            alerta.dispose();
+            vista.dispose();
+            VistaMisTarjetas vistaTarjetas = new VistaMisTarjetas();
+            ControladorTarjetas controlador = new ControladorTarjetas(vistaTarjetas);
+            controlador.iniciar();
+        });
+        alerta.btnCancelarPago.addActionListener(ev -> alerta.dispose());
+
+        alerta.setLocationRelativeTo(vista);
+        alerta.setVisible(true);
     }
 
     public void iniciar() {

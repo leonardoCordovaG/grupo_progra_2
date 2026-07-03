@@ -3,7 +3,7 @@ package controlador;
 import data.Sistema;
 import modelo.Concierto;
 import vista.VistaCatalogoConciertos;
-import vista.VistaDetalleConcierto;
+import vista.dlgDetalleConciertoUsuario;
 import vista.VistaHistorialCompras;
 import vista.VistaLogin;
 import javax.swing.JOptionPane;
@@ -24,7 +24,7 @@ public class ControladorCatalogo {
             Sistema.conciertoSeleccionado = Sistema.conciertos.obtener(fila);
             vista.dispose();
 
-            VistaDetalleConcierto vistaDetalle = new VistaDetalleConcierto();
+            dlgDetalleConciertoUsuario vistaDetalle = new dlgDetalleConciertoUsuario(null, true);
             ControladorDetalle controlador = new ControladorDetalle(vistaDetalle);
             controlador.iniciar();
         });
@@ -33,8 +33,6 @@ public class ControladorCatalogo {
             VistaHistorialCompras vistaHistorial = new VistaHistorialCompras();
             vistaHistorial.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Evitar que se cierre toda la app al cerrar esta ventana secundaria.
             
-            ControladorHistorial controladorHistorial = new ControladorHistorial(vistaHistorial, Sistema.clienteActual);
-
             vistaHistorial.setTitle("Mis Compras — " + Sistema.clienteActual.getNombres());
             vistaHistorial.setLocationRelativeTo(null);
             vistaHistorial.setVisible(true);
