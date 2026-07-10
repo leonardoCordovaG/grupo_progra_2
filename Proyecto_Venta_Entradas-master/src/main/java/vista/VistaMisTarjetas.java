@@ -26,7 +26,7 @@ public class VistaMisTarjetas extends JFrame {
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
         content.add(lblTitulo, BorderLayout.NORTH);
 
-        String[] columnas = {"Número", "Titular", "Vencimiento"};
+        String[] columnas = {"Número", "Titular", "Vencimiento", "Marca"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };

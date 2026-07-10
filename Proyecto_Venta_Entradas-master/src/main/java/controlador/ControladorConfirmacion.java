@@ -33,6 +33,13 @@ public class ControladorConfirmacion {
         vista.setVisible(true);
     }
 
+    // Precio de la zona por la cantidad de entradas, menos el % de descuento asociado a la marca de la tarjeta.
+    private int calcularTotal(Zona zona, int cantidad) {
+        int bruto = zona.getPrecio() * cantidad;
+        double descuento = Sistema.tarjetaSeleccionada.getTipo().getPorcentajeDescuento();
+        return (int) Math.round(bruto * (1 - descuento / 100.0));
+    }
+
     private void cargarResumen() {
         Concierto concierto = Sistema.conciertoSeleccionado;
         Zona zona           = Sistema.zonaSeleccionada;
@@ -40,12 +47,13 @@ public class ControladorConfirmacion {
 
         if (concierto == null || zona == null || Sistema.tarjetaSeleccionada == null) return;
 
-        int total = zona.getPrecio() * cantidad;
+        int total = calcularTotal(zona, cantidad);
+        double descuento = Sistema.tarjetaSeleccionada.getTipo().getPorcentajeDescuento();
         vista.lblConcierto.setText(concierto.getNombre());
         vista.lblZona.setText(zona.getNombre());
         vista.lblCantidad.setText(cantidad + " entrada(s)");
         vista.lblPrecioUnit.setText("S/ " + zona.getPrecio());
-        vista.lblTotal.setText("S/ " + total);
+        vista.lblTotal.setText("S/ " + total + (descuento > 0 ? "  (-" + (int) descuento + "% " + Sistema.tarjetaSeleccionada.getTipo().getNombre() + ")" : ""));
         vista.lblTarjeta.setText(
             Sistema.tarjetaSeleccionada.getNumeroEnmascarado() + "  —  " + Sistema.tarjetaSeleccionada.getNombre()
         );
@@ -55,7 +63,7 @@ public class ControladorConfirmacion {
         Concierto concierto = Sistema.conciertoSeleccionado;
         Zona zona           = Sistema.zonaSeleccionada;
         int cantidad        = Sistema.cantidadEntradas;
-        int total           = zona.getPrecio() * cantidad;
+        int total           = calcularTotal(zona, cantidad);
 
         int confirm = JOptionPane.showConfirmDialog(vista,
             "¿Confirmar el pago de S/ " + total + "?",

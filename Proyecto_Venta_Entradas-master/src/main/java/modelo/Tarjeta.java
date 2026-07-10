@@ -6,21 +6,23 @@ public class Tarjeta {
     private String nombre;
     private String fecha;
     private int CVV;
+    private TipoTarjeta tipo;
 
-    public Tarjeta(long numero, String nombre, String fecha, int CVV) {
+    public Tarjeta(long numero, String nombre, String fecha, int CVV, TipoTarjeta tipo) {
         this.numero = numero;
         this.nombre = nombre;
         this.fecha = fecha;
         this.CVV = CVV;
+        this.tipo = tipo;
     }
 
 
     public boolean validarTarjeta() {
         try {
-            verificarNumero(String.valueOf(this.numero));
+            verificarNumero(String.valueOf(this.numero), this.tipo);
             verificarNombre(this.nombre);
             verificarFecha(this.fecha);
-            verificarCVV(String.valueOf(this.CVV));
+            verificarCVV(String.valueOf(this.CVV), this.tipo);
             return true;
         } catch (IllegalArgumentException e) {
             // Captura las excepciones de validación y emite el mensaje de error correspondiente
@@ -30,10 +32,11 @@ public class Tarjeta {
     }
 
 
-    public static void verificarNumero(String numeroStr) {
+    public static void verificarNumero(String numeroStr, TipoTarjeta tipo) {
         try {
-            if (numeroStr == null || numeroStr.trim().length() != 16) {
-                throw new IllegalArgumentException("El número de tarjeta debe tener exactamente 16 dígitos.");
+            int longitudEsperada = tipo.getLongitudNumero();
+            if (numeroStr == null || numeroStr.trim().length() != longitudEsperada) {
+                throw new IllegalArgumentException("El número de tarjeta " + tipo.getNombre() + " debe tener exactamente " + longitudEsperada + " dígitos.");
             }
             Long.parseLong(numeroStr.trim());
         } catch (NumberFormatException e) {
@@ -71,14 +74,15 @@ public class Tarjeta {
     }
 
 
-    public static void verificarCVV(String cvvStr) {
+    public static void verificarCVV(String cvvStr, TipoTarjeta tipo) {
         try {
-            if (cvvStr == null || cvvStr.trim().length() != 3) {
-                throw new IllegalArgumentException("El código CVV debe tener exactamente 3 dígitos.");
+            int longitudEsperada = tipo.getLongitudCVV();
+            if (cvvStr == null || cvvStr.trim().length() != longitudEsperada) {
+                throw new IllegalArgumentException("El código CVV debe tener exactamente " + longitudEsperada + " dígitos.");
             }
             Integer.parseInt(cvvStr.trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El CVV contiene caracteres no válidos. Debe ser un número de 3 dígitos.");
+            throw new IllegalArgumentException("El CVV contiene caracteres no válidos. Debe ser un número de " + tipo.getLongitudCVV() + " dígitos.");
         }
     }
 
@@ -86,6 +90,7 @@ public class Tarjeta {
     public String getNombre() { return nombre; }
     public String getFecha() { return fecha; }
     public int getCVV() { return CVV; }
+    public TipoTarjeta getTipo() { return tipo; }
 
     public String getNumeroEnmascarado() {
         String n = String.valueOf(numero);

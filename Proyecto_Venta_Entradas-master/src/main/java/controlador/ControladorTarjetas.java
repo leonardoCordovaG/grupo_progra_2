@@ -2,6 +2,7 @@ package controlador;
 
 import data.Sistema;
 import modelo.Tarjeta;
+import modelo.TipoTarjeta;
 import vista.VistaMisTarjetas;
 import vista.VistaConfirmacionPago;
 import vista.dlgDetalleConciertoUsuario;
@@ -65,27 +66,31 @@ public class ControladorTarjetas {
             vista.modeloTabla.addRow(new Object[]{
                 t.getNumeroEnmascarado(),
                 t.getNombre(),
-                t.getFecha()
+                t.getFecha(),
+                t.getTipo().getNombre()
             });
         }
     }
 
     private void agregarTarjeta() {
+        JComboBox<TipoTarjeta> cboTipo = new JComboBox<>(Sistema.tiposTarjeta);
         JTextField txtNumero = new JTextField(16);
         JTextField txtNombre = new JTextField(20);
         JTextField txtFecha  = new JTextField(5);
-        JTextField txtCVV    = new JTextField(3);
+        JTextField txtCVV    = new JTextField(4);
 
-        JPanel form = new JPanel(new GridLayout(4, 2, 5, 8));
-        form.add(new JLabel("Número de tarjeta (16 dígitos):")); form.add(txtNumero);
-        form.add(new JLabel("Nombre del titular:"));             form.add(txtNombre);
-        form.add(new JLabel("Vencimiento (MM/AA):"));            form.add(txtFecha);
-        form.add(new JLabel("CVV (3 dígitos):"));                form.add(txtCVV);
+        JPanel form = new JPanel(new GridLayout(5, 2, 5, 8));
+        form.add(new JLabel("Marca de la tarjeta:"));             form.add(cboTipo);
+        form.add(new JLabel("Número de tarjeta:"));               form.add(txtNumero);
+        form.add(new JLabel("Nombre del titular:"));              form.add(txtNombre);
+        form.add(new JLabel("Vencimiento (MM/AA):"));             form.add(txtFecha);
+        form.add(new JLabel("CVV:"));                             form.add(txtCVV);
 
         int resultado = JOptionPane.showConfirmDialog(vista, form,
             "Registrar nueva tarjeta", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (resultado != JOptionPane.OK_OPTION) return;
 
+        TipoTarjeta tipo = (TipoTarjeta) cboTipo.getSelectedItem();
         String numStr  = txtNumero.getText().trim();
         String nombre  = txtNombre.getText().trim();
         String fecha   = txtFecha.getText().trim();
@@ -95,27 +100,14 @@ public class ControladorTarjetas {
             JOptionPane.showMessageDialog(vista, "Completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        /*
-        try {
-            long numero = Long.parseLong(numStr);
-            int cvv     = Integer.parseInt(cvvStr);
-            Sistema.clienteActual.agregarTarjeta(new Tarjeta(numero, nombre, fecha, cvv));
-            cargarTarjetas();
-            JOptionPane.showMessageDialog(vista, "Tarjeta registrada correctamente.");
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(vista,
-                "El número de tarjeta y el CVV deben ser solo dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        */
-        
+
         try {
             long numero = Long.parseLong(numStr);
             int cvv     = Integer.parseInt(cvvStr);
 
-            Tarjeta nuevaTarjeta = new Tarjeta(numero, nombre, fecha, cvv);
+            Tarjeta nuevaTarjeta = new Tarjeta(numero, nombre, fecha, cvv, tipo);
 
-            // Ejecuta las validaciones internas (longitud, letras, formato fecha) antes de guardarla
+            // Ejecuta las validaciones internas (longitud según la marca, letras, formato fecha) antes de guardarla
             if (nuevaTarjeta.validarTarjeta()) {
                 Sistema.clienteActual.agregarTarjeta(nuevaTarjeta);
                 cargarTarjetas();

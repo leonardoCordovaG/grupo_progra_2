@@ -93,6 +93,16 @@ class Tarjeta {
     + getNumeroEnmascarado() : String
 }
 
+class TipoTarjeta {
+    - nombre : String
+    ' nombre : VISA, MASTERCARD, DINNERS, AMERICAN EXPRESS
+    - longitudNumero : int
+    - longitudCVV : int
+    - porcentajeDescuento : double
+
+    + validarNumero(numero : long) : boolean
+}
+
 
 ' ===================== RELACIONES =====================
 
@@ -103,6 +113,7 @@ Cliente "1" --> "0..*" Tarjeta
 Cliente "1" --> "0..*" Venta
 
 Tarjeta "1" <-- "0..*" Venta
+Tarjeta "*" --> "1" TipoTarjeta
 
 Venta "1" *-- "1..4" DetalleVenta
 DetalleVenta "*" --> "1" Entrada
