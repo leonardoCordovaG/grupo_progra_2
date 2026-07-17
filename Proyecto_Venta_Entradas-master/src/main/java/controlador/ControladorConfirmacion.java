@@ -71,7 +71,7 @@ public class ControladorConfirmacion {
         if (confirm != JOptionPane.YES_OPTION) return;
 
         // Crear la venta primero para poder registrar en ella cada entrada vendida
-        Venta venta = new Venta(new Date(), total, zona, null, concierto.getNombre(), cantidad);
+        Venta venta = new Venta(new Date(), total, zona, null, concierto.getNombre(), cantidad, Sistema.clienteActual);
 
         // Marcar entradas como vendidas y guardarlas en la venta para poder anularlas después
         Entrada[] entradas = zona.mostrarEntrada();
@@ -83,7 +83,6 @@ public class ControladorConfirmacion {
                 marcadas++;
             }
         }
-        Sistema.clienteActual.agregarVenta(venta);
         Sistema.ventas.agregar(venta);
 
         JOptionPane.showMessageDialog(vista,

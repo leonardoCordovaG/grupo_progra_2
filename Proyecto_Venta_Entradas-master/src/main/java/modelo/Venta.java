@@ -11,29 +11,17 @@ public class Venta {
     private Entrada entradaAsociada;
     private String conciertoNombre;
     private int cantidadEntradas;
+    private Cliente clienteAsociado;
     private List<Entrada> entradasVendidas = new ArrayList<>();
 
-    public Venta(Date fecha, int monto) {
-        this.fecha = fecha;
-        this.monto = monto;
-    }
-
-    // Constructor extendido para ControladorTicket e historial
-    public Venta(Date fecha, int monto, Zona zona, Entrada entrada) {
-        this.fecha = fecha;
-        this.monto = monto;
-        this.zonaAsociada = zona;
-        this.entradaAsociada = entrada;
-    }
-
-    // Constructor completo con nombre del concierto y cantidad para el historial
-    public Venta(Date fecha, int monto, Zona zona, Entrada entrada, String conciertoNombre, int cantidadEntradas) {
+    public Venta(Date fecha, int monto, Zona zona, Entrada entrada, String conciertoNombre, int cantidadEntradas, Cliente clienteAsociado) {
         this.fecha = fecha;
         this.monto = monto;
         this.zonaAsociada = zona;
         this.entradaAsociada = entrada;
         this.conciertoNombre = conciertoNombre;
         this.cantidadEntradas = cantidadEntradas;
+        this.clienteAsociado = clienteAsociado;
     }
 
     public boolean anular() {
@@ -55,4 +43,5 @@ public class Venta {
     public Entrada getEntradaAsociada() { return entradaAsociada; }
     public String getConciertoNombre() { return conciertoNombre != null ? conciertoNombre : "-"; }
     public int getCantidadEntradas() { return cantidadEntradas; }
+    public Cliente getClienteAsociado() { return clienteAsociado; }
 }

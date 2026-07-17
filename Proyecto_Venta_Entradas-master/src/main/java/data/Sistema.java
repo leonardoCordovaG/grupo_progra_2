@@ -3,6 +3,7 @@ package data;
 import modelo.ClienteArreglo;
 import modelo.ConciertoArreglo;
 import modelo.VentaArreglo;
+import modelo.Administrador;
 import modelo.Cliente;
 import modelo.Concierto;
 import modelo.Zona;
@@ -18,7 +19,7 @@ public class Sistema {
     public static VentaArreglo ventas = new VentaArreglo(200);
 
     // Usuario administrador del sistema
-    public static Cliente admin = new Cliente(0, "Admin", "", "admin", "admin123");
+    public static Administrador admin = new Administrador("Admin", "", "admin", "admin123");
 
     public static Cliente cliente1 = new Cliente(0, "Juan", "Pérez", "12345678", "1234");
     public static Cliente cliente2 = new Cliente(0, "María", "García", "87654321", "abcd");
@@ -35,8 +36,6 @@ public class Sistema {
     public static TipoTarjeta[] tiposTarjeta = { VISA, MASTERCARD, DINERS, AMERICAN_EXPRESS };
 
     public static void inicializar() {
-        clientes.agregar(admin);
-
         clientes.agregar(cliente1);
         clientes.agregar(cliente2);
         clientes.agregar(cliente3);

@@ -102,20 +102,23 @@ public class ControladorTarjetas {
         }
 
         try {
+            // Se valida el texto tal cual se ingresó (antes de parsearlo a long/int), porque esa
+            // conversión pierde los ceros a la izquierda y arruinaría la validación de longitud.
+            Tarjeta.verificarNumero(numStr, tipo);
+            Tarjeta.verificarCVV(cvvStr, tipo);
+
             long numero = Long.parseLong(numStr);
             int cvv     = Integer.parseInt(cvvStr);
 
             Tarjeta nuevaTarjeta = new Tarjeta(numero, nombre, fecha, cvv, tipo);
 
-            // Ejecuta las validaciones internas (longitud según la marca, letras, formato fecha) antes de guardarla
             if (nuevaTarjeta.validarTarjeta()) {
                 Sistema.clienteActual.agregarTarjeta(nuevaTarjeta);
                 cargarTarjetas();
                 JOptionPane.showMessageDialog(vista, "Tarjeta registrada correctamente.");
             }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(vista,
-            "El número de tarjeta y el CVV deben ser solo dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(vista, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

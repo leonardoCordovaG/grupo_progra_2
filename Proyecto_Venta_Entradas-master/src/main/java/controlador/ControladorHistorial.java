@@ -1,5 +1,6 @@
 package controlador;
 
+import data.Sistema;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ public class ControladorHistorial {
             return;
         }
 
-        Venta venta = cliente.getVentas().get(fila);
+        Venta venta = Sistema.ventas.buscarPorCliente(cliente).get(fila);
         int totalEntradas = venta.getCantidadEntradas();
 
         // Pedir cuantas entradas anular (entre 1 y el total de esa compra)
@@ -69,7 +70,7 @@ public class ControladorHistorial {
 
         if (cantidadAnular == totalEntradas) {
             // Anulacion total: sacar la venta del historial
-            cliente.getVentas().remove(fila);
+            Sistema.ventas.eliminar(venta);
         } else {
             // Anulacion parcial: actualizar cantidad y monto en la misma venta
             int precioPorEntrada = venta.getZonaAsociada().getPrecio();
@@ -91,7 +92,7 @@ public class ControladorHistorial {
         if (cliente == null) return;
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        for (Venta v : cliente.getVentas()) {
+        for (Venta v : Sistema.ventas.buscarPorCliente(cliente)) {
             String zona = v.getZonaAsociada() != null ? v.getZonaAsociada().getNombre() : "-";
             modeloTabla.addRow(new Object[]{
                 sdf.format(v.getFecha()),

@@ -19,14 +19,14 @@ public class ControladorLogin {
             String usuario = vista.txtUsuario.getText().trim();
             String clave   = new String(vista.txtClave.getPassword()).trim();
 
-            if (usuario.equals("admin") && clave.equals("admin123")) {
+            if (usuario.equals(Sistema.admin.getDni()) && clave.equals(Sistema.admin.getContrasena())) {
                 // Ingresar como admin
-                JOptionPane.showMessageDialog(vista, "Bienvenido Administrador");
+                JOptionPane.showMessageDialog(vista, "Bienvenido " + Sistema.admin.getNombres());
                 vista.dispose(); // cerrar el login antes de abrir el panel admin
 
                 // Cargamos la vista de admin
                 frmAdminDashboard dashboard = new frmAdminDashboard();
-                ControladorAdminDashboard controlador = new ControladorAdminDashboard(dashboard, Sistema.conciertos, Sistema.ventas);
+                ControladorAdminDashboard controlador = new ControladorAdminDashboard(dashboard, Sistema.admin, Sistema.conciertos, Sistema.ventas);
                 controlador.iniciar();
             } else {
                 // Ingresar como usuario normal

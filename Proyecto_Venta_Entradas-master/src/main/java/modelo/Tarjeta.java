@@ -17,72 +17,56 @@ public class Tarjeta {
     }
 
 
+    // El número y el CVV ya llegan validados (ver Tarjeta.verificarNumero/verificarCVV): se validan
+    // sobre el texto ingresado ANTES de convertirlo a long/int, porque esa conversión pierde los
+    // ceros a la izquierda (ej. CVV "0834" se guardaría como 834). Acá solo queda validar nombre y fecha.
     public boolean validarTarjeta() {
         try {
-            verificarNumero(String.valueOf(this.numero), this.tipo);
             verificarNombre(this.nombre);
             verificarFecha(this.fecha);
-            verificarCVV(String.valueOf(this.CVV), this.tipo);
             return true;
         } catch (IllegalArgumentException e) {
-            // Captura las excepciones de validación y emite el mensaje de error correspondiente
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error de Validación", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
 
-
     public static void verificarNumero(String numeroStr, TipoTarjeta tipo) {
+        int longitudEsperada = tipo.getLongitudNumero();
+        if (numeroStr == null || numeroStr.trim().length() != longitudEsperada) {
+            throw new IllegalArgumentException("El número de tarjeta " + tipo.getNombre() + " debe tener exactamente " + longitudEsperada + " dígitos.");
+        }
         try {
-            int longitudEsperada = tipo.getLongitudNumero();
-            if (numeroStr == null || numeroStr.trim().length() != longitudEsperada) {
-                throw new IllegalArgumentException("El número de tarjeta " + tipo.getNombre() + " debe tener exactamente " + longitudEsperada + " dígitos.");
-            }
             Long.parseLong(numeroStr.trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("El número de tarjeta contiene caracteres no válidos. Debe ser puramente numérico.");
         }
     }
 
-     
     public static void verificarNombre(String nombre) {
-        try {
-            if (nombre == null || nombre.trim().isEmpty()) {
-                throw new IllegalArgumentException("El nombre del titular no puede estar vacío.");
-            }
-            if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
-                throw new IllegalArgumentException("El nombre del titular solo debe contener letras y espacios.");
-            }
-        } catch (NullPointerException e) {
-            throw new IllegalArgumentException("El nombre del titular proporcionado es nulo.");
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del titular no puede estar vacío.");
+        }
+        if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+            throw new IllegalArgumentException("El nombre del titular solo debe contener letras y espacios.");
         }
     }
-
 
     public static void verificarFecha(String fecha) {
-        try {
-            if (fecha == null || !fecha.matches("^(0[1-9]|1[0-2])/(2[6-9]|[3-9][0-9])$")) {
-                throw new IllegalArgumentException("La fecha de vencimiento debe cumplir el formato MM/AA (Ejemplo: 08/29).");
-            }
-            
-        } catch (Exception e) {
-            if (e instanceof IllegalArgumentException) {
-                throw (IllegalArgumentException) e;
-            }
-            throw new IllegalArgumentException("Error al procesar la fecha de vencimiento.");
+        if (fecha == null || !fecha.matches("^(0[1-9]|1[0-2])/(2[6-9]|[3-9][0-9])$")) {
+            throw new IllegalArgumentException("La fecha de vencimiento debe cumplir el formato MM/AA (Ejemplo: 08/29).");
         }
     }
 
-
     public static void verificarCVV(String cvvStr, TipoTarjeta tipo) {
+        int longitudEsperada = tipo.getLongitudCVV();
+        if (cvvStr == null || cvvStr.trim().length() != longitudEsperada) {
+            throw new IllegalArgumentException("El código CVV debe tener exactamente " + longitudEsperada + " dígitos.");
+        }
         try {
-            int longitudEsperada = tipo.getLongitudCVV();
-            if (cvvStr == null || cvvStr.trim().length() != longitudEsperada) {
-                throw new IllegalArgumentException("El código CVV debe tener exactamente " + longitudEsperada + " dígitos.");
-            }
             Integer.parseInt(cvvStr.trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El CVV contiene caracteres no válidos. Debe ser un número de " + tipo.getLongitudCVV() + " dígitos.");
+            throw new IllegalArgumentException("El CVV contiene caracteres no válidos. Debe ser un número de " + longitudEsperada + " dígitos.");
         }
     }
 

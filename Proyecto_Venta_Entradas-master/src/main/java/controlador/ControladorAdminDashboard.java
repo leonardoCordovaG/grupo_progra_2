@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import modelo.Administrador;
 import modelo.ConciertoArreglo;
 import modelo.VentaArreglo;
 import vista.frmAdminDashboard;
@@ -11,11 +12,13 @@ import vista.VistaLogin;
 
 public class ControladorAdminDashboard implements ActionListener {
     private frmAdminDashboard vista;
+    private Administrador admin;
     private ConciertoArreglo listaConciertos;
     private VentaArreglo listaVentas;
 
-    public ControladorAdminDashboard(frmAdminDashboard vista, ConciertoArreglo conciertos, VentaArreglo ventas) {
+    public ControladorAdminDashboard(frmAdminDashboard vista, Administrador admin, ConciertoArreglo conciertos, VentaArreglo ventas) {
         this.vista = vista;
+        this.admin = admin;
         this.listaConciertos = conciertos;
         this.listaVentas = ventas;
 
@@ -25,7 +28,7 @@ public class ControladorAdminDashboard implements ActionListener {
     }
 
     public void iniciar() {
-        vista.setTitle("Módulo de Administración de Eventos");
+        vista.setTitle("Módulo de Administración de Eventos — " + admin.getNombres());
         vista.setLocationRelativeTo(null);
         vista.setVisible(true);
     }

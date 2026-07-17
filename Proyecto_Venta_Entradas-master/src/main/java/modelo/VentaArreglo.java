@@ -1,6 +1,8 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class VentaArreglo implements Iterable<Venta> {
 
@@ -33,6 +35,27 @@ public class VentaArreglo implements Iterable<Venta> {
         }
         datos[--total] = null;
         return true;
+    }
+
+    public boolean eliminar(Venta v) {
+        for (int i = 0; i < total; i++) {
+            if (datos[i] == v) {
+                return eliminar(i);
+            }
+        }
+        return false;
+    }
+
+    // Única fuente de verdad para "las ventas de un cliente": Cliente ya no guarda su propia
+    // lista de ventas, así se evita que ambas queden desincronizadas (ej. al anular desde el panel de admin).
+    public List<Venta> buscarPorCliente(Cliente c) {
+        List<Venta> resultado = new ArrayList<>();
+        for (int i = 0; i < total; i++) {
+            if (datos[i].getClienteAsociado() != null && datos[i].getClienteAsociado().getDni().equals(c.getDni())) {
+                resultado.add(datos[i]);
+            }
+        }
+        return resultado;
     }
 
     @Override

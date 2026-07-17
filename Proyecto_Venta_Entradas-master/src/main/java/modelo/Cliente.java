@@ -7,13 +7,11 @@ public class Cliente extends Persona {
 
     private int puntos;
     private List<Tarjeta> tarjetas;
-    private List<Venta> ventas;
 
     public Cliente(int puntos, String nombres, String apellidos, String dni, String contrasena) {
         super(nombres, apellidos, dni, contrasena);
         this.puntos = puntos;
         this.tarjetas = new ArrayList<>();
-        this.ventas   = new ArrayList<>();
     }
 
     public int getPuntos()            { return puntos; }
@@ -24,8 +22,8 @@ public class Cliente extends Persona {
     public boolean agregarTarjeta(Tarjeta t) { return tarjetas.add(t); }
     public boolean quitarTarjeta(Tarjeta t)  { return tarjetas.remove(t); }
 
-    public List<Venta> getVentas() { return ventas; }
-    public void agregarVenta(Venta v) { ventas.add(v); }
+    // Las ventas de un cliente ya no se guardan acá: usar Sistema.ventas.buscarPorCliente(cliente),
+    // así hay una sola fuente de verdad (ver VentaArreglo.buscarPorCliente).
 
     // DIAGNÓSTICO — borrar después de confirmar que el login funciona
     public static int getConteoClientes() {
