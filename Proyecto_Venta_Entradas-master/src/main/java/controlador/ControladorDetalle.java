@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ControladorDetalle {
+    private static final int MAX_ENTRADAS = 4;
+
     private dlgDetalleConciertoUsuario vista;
     private DefaultTableModel modeloAsientos;
 
@@ -27,7 +29,11 @@ public class ControladorDetalle {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 2 && "disponible".equals(getValueAt(row, 1));
+                if (column != 2 || !"disponible".equals(getValueAt(row, 1))) {
+                    return false;
+                }
+                // Ya se llegó al máximo: solo se puede desmarcar, no agregar un asiento más.
+                return Boolean.TRUE.equals(getValueAt(row, 2)) || contarMarcados() < MAX_ENTRADAS;
             }
         };
         this.vista.tblAsientos.setModel(modeloAsientos);
@@ -81,6 +87,16 @@ public class ControladorDetalle {
         return Sistema.conciertoSeleccionado.getZonas().get(indice);
     }
 
+    private int contarMarcados() {
+        int total = 0;
+        for (int fila = 0; fila < modeloAsientos.getRowCount(); fila++) {
+            if (Boolean.TRUE.equals(modeloAsientos.getValueAt(fila, 2))) {
+                total++;
+            }
+        }
+        return total;
+    }
+
     private void confirmarSeleccion() {
         Zona zona = obtenerZonaSeleccionada();
         if (zona == null) {
@@ -88,14 +104,13 @@ public class ControladorDetalle {
             return;
         }
 
-        int cantidad = 0;
-        for (int fila = 0; fila < modeloAsientos.getRowCount(); fila++) {
-            if (Boolean.TRUE.equals(modeloAsientos.getValueAt(fila, 2))) {
-                cantidad++;
-            }
-        }
+        int cantidad = contarMarcados();
         if (cantidad == 0) {
             JOptionPane.showMessageDialog(vista, "Selecciona al menos un asiento.");
+            return;
+        }
+        if (cantidad > MAX_ENTRADAS) {
+            JOptionPane.showMessageDialog(vista, "Solo puedes comprar un máximo de " + MAX_ENTRADAS + " entradas.");
             return;
         }
 

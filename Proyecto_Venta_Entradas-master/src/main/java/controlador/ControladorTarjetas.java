@@ -88,40 +88,46 @@ public class ControladorTarjetas {
         form.add(new JLabel("Vencimiento (MM/AA):"));             form.add(txtFecha);
         form.add(new JLabel("CVV:"));                             form.add(txtCVV);
 
-        int resultado = JOptionPane.showConfirmDialog(vista, form,
-            "Registrar nueva tarjeta", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (resultado != JOptionPane.OK_OPTION) return;
+        // Si algo falla se vuelve a mostrar este mismo diálogo (con lo ya escrito conservado)
+        // en vez de cerrarlo, para que el usuario solo corrija el campo que falló.
+        while (true) {
+            int resultado = JOptionPane.showConfirmDialog(vista, form,
+                "Registrar nueva tarjeta", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (resultado != JOptionPane.OK_OPTION) return;
 
-        TipoTarjeta tipo = (TipoTarjeta) cboTipo.getSelectedItem();
-        String numStr  = txtNumero.getText().trim();
-        String nombre  = txtNombre.getText().trim();
-        String fecha   = txtFecha.getText().trim();
-        String cvvStr  = txtCVV.getText().trim();
+            TipoTarjeta tipo = (TipoTarjeta) cboTipo.getSelectedItem();
+            String numStr  = txtNumero.getText().trim();
+            String nombre  = txtNombre.getText().trim();
+            String fecha   = txtFecha.getText().trim();
+            String cvvStr  = txtCVV.getText().trim();
 
-        if (numStr.isEmpty() || nombre.isEmpty() || fecha.isEmpty() || cvvStr.isEmpty()) {
-            JOptionPane.showMessageDialog(vista, "Completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try {
-            // Se valida el texto tal cual se ingresó (antes de parsearlo a long/int), porque esa
-            // conversión pierde los ceros a la izquierda y arruinaría la validación de longitud.
-            Tarjeta.verificarNumero(numStr, tipo);
-            Tarjeta.verificarCVV(cvvStr, tipo);
-
-            long numero = Long.parseLong(numStr);
-            int cvv     = Integer.parseInt(cvvStr);
-
-            Tarjeta nuevaTarjeta = new Tarjeta(numero, nombre, fecha, cvv, tipo);
-
-            if (nuevaTarjeta.validarTarjeta()) {
-                Sistema.clienteActual.agregarTarjeta(nuevaTarjeta);
-                PersistenciaArchivo.guardar();
-                cargarTarjetas();
-                JOptionPane.showMessageDialog(vista, "Tarjeta registrada correctamente.");
+            if (numStr.isEmpty() || nombre.isEmpty() || fecha.isEmpty() || cvvStr.isEmpty()) {
+                JOptionPane.showMessageDialog(vista, "Completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                continue;
             }
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(vista, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+            try {
+                // Se valida el texto tal cual se ingresó (antes de parsearlo a long/int), porque esa
+                // conversión pierde los ceros a la izquierda y arruinaría la validación de longitud.
+                Tarjeta.verificarNumero(numStr, tipo);
+                Tarjeta.verificarCVV(cvvStr, tipo);
+
+                long numero = Long.parseLong(numStr);
+                int cvv     = Integer.parseInt(cvvStr);
+
+                Tarjeta nuevaTarjeta = new Tarjeta(numero, nombre, fecha, cvv, tipo);
+
+                if (nuevaTarjeta.validarTarjeta()) {
+                    Sistema.clienteActual.agregarTarjeta(nuevaTarjeta);
+                    PersistenciaArchivo.guardar();
+                    cargarTarjetas();
+                    JOptionPane.showMessageDialog(vista, "Tarjeta registrada correctamente.");
+                    return;
+                }
+                // validarTarjeta() ya mostró su propio mensaje (nombre/fecha inválidos): se reabre el formulario.
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(vista, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }
