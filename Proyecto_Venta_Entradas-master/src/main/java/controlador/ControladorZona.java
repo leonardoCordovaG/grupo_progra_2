@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import modelo.Zona;
-import modelo.Entrada;
 import vista.dlgZona;
 
 public class ControladorZona implements ActionListener {
@@ -42,7 +41,9 @@ public class ControladorZona implements ActionListener {
                     return;
                 }
 
-                Zona nuevaZona = new Zona(nombre, capacidad, precio, new Entrada[0]);
+                // Este constructor genera automáticamente "capacidad" entradas en estado "disponible";
+                // pasar un Entrada[0] (como antes) dejaba la zona sin ningún asiento para vender.
+                Zona nuevaZona = new Zona(nombre, capacidad, precio);
                 controladorPadre.recibirNuevaZona(nuevaZona); 
                 vista.dispose();
 

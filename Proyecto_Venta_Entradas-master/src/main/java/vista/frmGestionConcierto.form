@@ -34,7 +34,7 @@
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtNombreConcierto" pref="151" max="32767" attributes="0"/>
-                          <Component id="txtFechaConcierto" max="32767" attributes="0"/>
+                          <Component id="spnFechaConcierto" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -76,7 +76,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFechaConcierto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnFechaConcierto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                       <Component id="btnAbrirAñadirZona" min="-2" max="-2" attributes="0"/>
@@ -122,7 +122,7 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtFechaConcierto">
+    <Component class="javax.swing.JSpinner" name="spnFechaConcierto">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>

@@ -32,7 +32,7 @@ public class frmGestionConcierto extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNombreConcierto = new javax.swing.JTextField();
-        txtFechaConcierto = new javax.swing.JTextField();
+        spnFechaConcierto = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblZonasConcierto = new javax.swing.JTable();
         btnAbrirAñadirZona = new javax.swing.JButton();
@@ -49,6 +49,9 @@ public class frmGestionConcierto extends javax.swing.JFrame {
         jLabel3.setText("Fecha ");
 
         txtNombreConcierto.addActionListener(this::txtNombreConciertoActionPerformed);
+
+        spnFechaConcierto.setModel(new javax.swing.SpinnerDateModel());
+        spnFechaConcierto.setEditor(new javax.swing.JSpinner.DateEditor(spnFechaConcierto, "dd/MM/yyyy"));
 
         tblZonasConcierto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,7 +86,7 @@ public class frmGestionConcierto extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombreConcierto, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(txtFechaConcierto)))
+                            .addComponent(spnFechaConcierto)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -115,7 +118,7 @@ public class frmGestionConcierto extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtFechaConcierto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(spnFechaConcierto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(68, 68, 68)
                         .addComponent(btnAbrirAñadirZona)
                         .addGap(18, 18, 18)
@@ -169,7 +172,7 @@ public class frmGestionConcierto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tblZonasConcierto;
-    public javax.swing.JTextField txtFechaConcierto;
+    public javax.swing.JSpinner spnFechaConcierto;
     public javax.swing.JTextField txtNombreConcierto;
     // End of variables declaration//GEN-END:variables
 }

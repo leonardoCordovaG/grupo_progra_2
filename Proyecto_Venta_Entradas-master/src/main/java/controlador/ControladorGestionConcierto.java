@@ -78,7 +78,8 @@ public class ControladorGestionConcierto implements ActionListener {
                 return;
             }
 
-            Concierto conciertoFinal = new Concierto(nombre, new Date());
+            Date fecha = (Date) vista.spnFechaConcierto.getValue();
+            Concierto conciertoFinal = new Concierto(nombre, fecha);
             for (Zona z : conciertoTemporal.getListaZonas()) {
                 conciertoFinal.agregarZona(z);
             }
