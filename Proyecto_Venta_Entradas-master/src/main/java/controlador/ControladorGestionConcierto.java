@@ -1,5 +1,6 @@
 package controlador;
 
+import data.PersistenciaArchivo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -83,6 +84,7 @@ public class ControladorGestionConcierto implements ActionListener {
             }
 
             listaGlobalConciertos.agregar(conciertoFinal);
+            PersistenciaArchivo.guardar();
             JOptionPane.showMessageDialog(vista, "¡Concierto '" + nombre + "' registrado de forma exitosa!");
             vista.dispose();
         }

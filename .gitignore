@@ -24,3 +24,6 @@ hs_err_pid*
 replay_pid*
 /Proyecto_Venta_Entradas-master/target/
 /target/
+
+# Datos persistidos en disco (generados en tiempo de ejecución, no son código fuente)
+sistema.dat

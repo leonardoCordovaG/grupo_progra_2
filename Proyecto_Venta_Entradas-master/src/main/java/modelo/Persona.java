@@ -4,11 +4,15 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author juane
  */
-public abstract class Persona {
+public abstract class Persona implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String nombres;
     private String apellidos;
     private String dni;

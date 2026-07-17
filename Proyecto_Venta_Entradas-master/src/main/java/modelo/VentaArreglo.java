@@ -1,10 +1,12 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class VentaArreglo implements Iterable<Venta> {
+public class VentaArreglo implements Iterable<Venta>, Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Venta[] datos;
     private int total;

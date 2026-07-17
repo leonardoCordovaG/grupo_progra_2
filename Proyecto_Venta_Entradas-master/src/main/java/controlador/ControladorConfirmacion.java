@@ -1,5 +1,6 @@
 package controlador;
 
+import data.PersistenciaArchivo;
 import data.Sistema;
 import modelo.Concierto;
 import modelo.Entrada;
@@ -84,6 +85,7 @@ public class ControladorConfirmacion {
             }
         }
         Sistema.ventas.agregar(venta);
+        PersistenciaArchivo.guardar();
 
         JOptionPane.showMessageDialog(vista,
             "¡Compra realizada con éxito!\n\n" +

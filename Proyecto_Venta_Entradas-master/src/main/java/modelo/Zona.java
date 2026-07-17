@@ -1,6 +1,10 @@
 package modelo;
 
-public class Zona {
+import java.io.Serializable;
+
+public class Zona implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String nombre;
     private int capacidad;
     private int precio;

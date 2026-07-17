@@ -1,5 +1,6 @@
 package controlador;
 
+import data.PersistenciaArchivo;
 import data.Sistema;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -77,6 +78,7 @@ public class ControladorHistorial {
             venta.setCantidadEntradas(totalEntradas - cantidadAnular);
             venta.setMonto(venta.getMonto() - (precioPorEntrada * cantidadAnular));
         }
+        PersistenciaArchivo.guardar();
 
         actualizarTabla();
         JOptionPane.showMessageDialog(vista, cantidadAnular + " entrada(s) anulada(s).");

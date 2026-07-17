@@ -4,11 +4,15 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Keple
  */
-public class TipoTarjeta {
+public class TipoTarjeta implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String nombre;
     private int longitudNumero;
     private int longitudCVV;

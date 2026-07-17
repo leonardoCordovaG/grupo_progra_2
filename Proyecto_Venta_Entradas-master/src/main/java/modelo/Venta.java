@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Venta {
+public class Venta implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Date fecha;
     private int monto;
     private Zona zonaAsociada;

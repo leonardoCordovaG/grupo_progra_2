@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Persona {
+    private static final long serialVersionUID = 1L;
 
     private int puntos;
     private List<Tarjeta> tarjetas;

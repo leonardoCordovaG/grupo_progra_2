@@ -1,6 +1,10 @@
 package modelo;
 
-public class Entrada {
+import java.io.Serializable;
+
+public class Entrada implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int numero;
     private String estado;
 

@@ -1,10 +1,13 @@
 package modelo;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Concierto {
+public class Concierto implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String nombre;
     private Date fecha;
     private ArrayList<Zona> listaZonas = new ArrayList<>();

@@ -1,8 +1,10 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class ConciertoArreglo implements Iterable<Concierto> {
+public class ConciertoArreglo implements Iterable<Concierto>, Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Concierto[] datos;
     private int total;

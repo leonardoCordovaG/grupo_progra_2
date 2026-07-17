@@ -1,6 +1,7 @@
 package modelo;
 
 public class Administrador extends Persona {
+    private static final long serialVersionUID = 1L;
 
     public Administrador(String nombres, String apellidos, String dni, String contrasena) {
         super(nombres, apellidos, dni, contrasena);

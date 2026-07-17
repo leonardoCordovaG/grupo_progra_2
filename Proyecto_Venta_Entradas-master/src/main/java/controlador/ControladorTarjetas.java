@@ -1,5 +1,6 @@
 package controlador;
 
+import data.PersistenciaArchivo;
 import data.Sistema;
 import modelo.Tarjeta;
 import modelo.TipoTarjeta;
@@ -28,6 +29,7 @@ public class ControladorTarjetas {
             if (confirm == JOptionPane.YES_OPTION) {
                 Tarjeta t = Sistema.clienteActual.getTarjetas().get(fila);
                 Sistema.clienteActual.quitarTarjeta(t);
+                PersistenciaArchivo.guardar();
                 cargarTarjetas();
             }
         });
@@ -114,6 +116,7 @@ public class ControladorTarjetas {
 
             if (nuevaTarjeta.validarTarjeta()) {
                 Sistema.clienteActual.agregarTarjeta(nuevaTarjeta);
+                PersistenciaArchivo.guardar();
                 cargarTarjetas();
                 JOptionPane.showMessageDialog(vista, "Tarjeta registrada correctamente.");
             }

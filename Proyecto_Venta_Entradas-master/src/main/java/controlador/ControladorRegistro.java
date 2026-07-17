@@ -1,5 +1,6 @@
 package controlador;
 
+import data.PersistenciaArchivo;
 import data.Sistema;
 import modelo.Cliente;
 import vista.VistaRegistro;
@@ -37,6 +38,7 @@ public class ControladorRegistro {
                 // Si todo es válido, procedemos a registrar en el arreglo/memoria
                 Cliente nuevo = new Cliente(0, nombres, apellidos, dni, clave);
                 if (Sistema.clientes.agregar(nuevo)) {
+                    PersistenciaArchivo.guardar();
                     JOptionPane.showMessageDialog(vista, "Registro exitoso. Ya puede iniciar sesión.");
                     vista.dispose();
                     VistaLogin vistaLogin = new VistaLogin();

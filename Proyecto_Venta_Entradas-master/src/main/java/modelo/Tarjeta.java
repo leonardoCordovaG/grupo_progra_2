@@ -1,7 +1,10 @@
 package modelo;
+import java.io.Serializable;
 import javax.swing.JOptionPane;
 
-public class Tarjeta {
+public class Tarjeta implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private long numero;
     private String nombre;
     private String fecha;

@@ -1,10 +1,12 @@
 package controlador;
 
+import data.PersistenciaArchivo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Entrada;
 import modelo.Venta;
 import modelo.VentaArreglo;
 import vista.dlgPanelAnulaciones;
@@ -49,7 +51,13 @@ public class ControladorPanelAnulaciones implements ActionListener {
             if (fila != -1) {
                 Venta ventaObj = listaVentas.obtener(fila);
                 if (ventaObj.anular()) {
+                    // Liberar las entradas de esta venta, igual que hace ControladorHistorial
+                    // al anular desde el lado del cliente.
+                    for (Entrada en : ventaObj.getEntradasVendidas()) {
+                        en.liberar();
+                    }
                     listaVentas.eliminar(fila);
+                    PersistenciaArchivo.guardar();
                     JOptionPane.showMessageDialog(vista, "Operación anulada exitosamente.");
                     cargarTablaVentas();
                 }
